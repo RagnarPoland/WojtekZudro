@@ -9,6 +9,7 @@ import {
   SITE_NAME,
   SITE_SERVICES,
   SITE_TAGLINE,
+  withBase,
 } from "../lib/site";
 ---
 
@@ -19,7 +20,7 @@ import {
   <nav class="magazine-topics" aria-label="Tematy usług">
     {
       SITE_SERVICES.map((service) => (
-        <a class="magazine-topic" href={`/uslugi/${service.slug}`}>
+        <a class="magazine-topic" href={withBase(`/uslugi/${service.slug}`)}>
           {service.menuLabel}
         </a>
       ))
@@ -29,7 +30,7 @@ import {
   <article class="magazine-featured">
     <div class="magazine-featured-visual">
       <img
-        src="/brand/wojciech-zudro.png?v=2"
+        src={`${withBase("/brand/wojciech-zudro.png")}?v=2`}
         alt="Wojciech Zudro — Büroservice"
         width="900"
         height="1125"
@@ -40,8 +41,8 @@ import {
       <h1 class="magazine-featured-title">{HOME_FEATURED.title}</h1>
       <p class="magazine-featured-text">{HOME_FEATURED.text}</p>
       <div class="home-hero-actions">
-        <a href="/kontakt" class="site-btn site-btn-primary">Umów rozmowę</a>
-        <a href="/uslugi/sekretariat" class="site-btn site-btn-secondary">Zobacz usługi</a>
+        <a href={withBase("/kontakt")} class="site-btn site-btn-primary">Umów rozmowę</a>
+        <a href={withBase("/uslugi/sekretariat")} class="site-btn site-btn-secondary">Zobacz usługi</a>
       </div>
     </div>
   </article>
@@ -54,7 +55,7 @@ import {
     <div class="magazine-card-grid magazine-card-grid-3">
       {
         HOME_LATEST.map((item) => (
-          <a class="magazine-card" href={`/uslugi/${item.slug}`}>
+          <a class="magazine-card" href={withBase(`/uslugi/${item.slug}`)}>
             <p class="magazine-card-tag gold-text">{item.tag}</p>
             <h3 class="magazine-card-title">{item.title}</h3>
             <p class="magazine-card-text">{item.text}</p>
@@ -84,7 +85,7 @@ import {
     <div class="magazine-card-grid magazine-card-grid-3">
       {
         HOME_POPULAR.map((item) => (
-          <a class="magazine-card magazine-card-compact" href={`/uslugi/${item.slug}`}>
+          <a class="magazine-card magazine-card-compact" href={withBase(`/uslugi/${item.slug}`)}>
             <p class="magazine-card-tag gold-text">{item.tag}</p>
             <h3 class="magazine-card-title">{item.title}</h3>
           </a>
@@ -103,7 +104,7 @@ import {
         </div>
         <div class="magazine-card-grid magazine-card-grid-3">
           {category.items.map((item) => (
-            <a class="magazine-card magazine-card-compact" href={`/uslugi/${item.slug}`}>
+            <a class="magazine-card magazine-card-compact" href={withBase(`/uslugi/${item.slug}`)}>
               <p class="magazine-card-tag gold-text">{item.tag}</p>
               <h3 class="magazine-card-title">{item.title}</h3>
               <p class="magazine-card-text">{item.text}</p>
@@ -119,6 +120,6 @@ import {
     <p class="home-final-text">
       Opowiedz krótko, jak wygląda Twoje biuro — dopasujemy zakres Büroservice bez lania wody.
     </p>
-    <a href="/kontakt" class="site-btn site-btn-primary">Umów rozmowę</a>
+    <a href={withBase("/kontakt")} class="site-btn site-btn-primary">Umów rozmowę</a>
   </section>
 </SiteLayout>

@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { SITE_SERVICES } from "../../lib/site";
+import { SITE_SERVICES, withBase } from "../../lib/site";
 ---
 
 <SiteLayout
@@ -17,7 +17,7 @@ import { SITE_SERVICES } from "../../lib/site";
   <div class="magazine-card-grid magazine-card-grid-3">
     {
       SITE_SERVICES.map((service) => (
-        <a class="magazine-card" href={`/uslugi/${service.slug}`}>
+        <a class="magazine-card" href={withBase(`/uslugi/${service.slug}`)}>
           <p class="magazine-card-tag gold-text">{service.tag}</p>
           <h2 class="magazine-card-title">{service.title}</h2>
           <p class="magazine-card-text">{service.description}</p>

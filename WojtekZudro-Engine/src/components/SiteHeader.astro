@@ -1,8 +1,8 @@
 ---
 import BrandMark from "./BrandMark.astro";
-import { SITE_NAV, getOfferMenuItems } from "../lib/site";
+import { SITE_NAV, getOfferMenuItems, withBase, withoutBase } from "../lib/site";
 
-const currentPath = Astro.url.pathname;
+const currentPath = withoutBase(Astro.url.pathname);
 const offerMenuItems = getOfferMenuItems();
 const isOfferSection = currentPath.startsWith("/uslugi");
 ---
@@ -52,7 +52,7 @@ const isOfferSection = currentPath.startsWith("/uslugi");
                       {
                         offerMenuItems.map((service) => (
                           <a
-                            href={`/uslugi/${service.slug}`}
+                            href={withBase(`/uslugi/${service.slug}`)}
                             class:list={[
                               "site-nav-dropdown-item",
                               { "is-active": currentPath === `/uslugi/${service.slug}` },
@@ -86,7 +86,7 @@ const isOfferSection = currentPath.startsWith("/uslugi");
                   {
                     offerMenuItems.map((service) => (
                       <a
-                        href={`/uslugi/${service.slug}`}
+                        href={withBase(`/uslugi/${service.slug}`)}
                         class:list={[
                           "site-nav-submenu-link",
                           { "is-active": currentPath === `/uslugi/${service.slug}` },
@@ -105,7 +105,7 @@ const isOfferSection = currentPath.startsWith("/uslugi");
 
         return (
           <a
-            href={item.href}
+            href={withBase(item.href)}
             class:list={[
               "site-nav-link",
               {
@@ -120,7 +120,7 @@ const isOfferSection = currentPath.startsWith("/uslugi");
         );
       })
     }
-    <a href="/kontakt" class="site-nav-cta">Umów rozmowę</a>
+    <a href={withBase("/kontakt")} class="site-nav-cta">Umów rozmowę</a>
   </nav>
 </header>
 

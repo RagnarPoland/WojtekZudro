@@ -209,3 +209,17 @@ export const HOME_CATEGORIES = [
     ],
   },
 ] as const;
+
+export function withBase(path = "/") {
+  const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+  if (!path || path === "/") return `${base}/` || "/";
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${normalized}`;
+}
+
+export function withoutBase(pathname: string) {
+  const base = (import.meta.env.BASE_URL || "/").replace(/\/$/, "");
+  if (!base) return pathname;
+  if (pathname === base || pathname === `${base}/`) return "/";
+  return pathname.startsWith(`${base}/`) ? pathname.slice(base.length) : pathname;
+}

@@ -1,4 +1,6 @@
 ---
+import { withBase } from "../lib/site";
+
 interface Props {
   compact?: boolean;
 }
@@ -7,7 +9,7 @@ const { compact = false } = Astro.props;
 ---
 
 <a
-  href="/"
+  href={withBase("/")}
   class:list={["brand-mark", { "is-compact": compact }]}
   aria-label="Wojciech Zudro — Büroservice"
 >

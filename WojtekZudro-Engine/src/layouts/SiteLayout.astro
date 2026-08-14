@@ -1,7 +1,7 @@
 ---
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
-import { SITE_NAME, SITE_TAGLINE } from "../lib/site";
+import { SITE_NAME, SITE_TAGLINE, withBase } from "../lib/site";
 import "../styles/global.css";
 import "../styles/site.css";
 
@@ -23,7 +23,7 @@ const {
 
 const siteOrigin = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const pageUrl = canonical ?? `${siteOrigin}${Astro.url.pathname}`;
-const pageImage = ogImage ?? `${siteOrigin}/brand/wojciech-zudro.png`;
+const pageImage = ogImage ?? `${siteOrigin}${withBase("/brand/wojciech-zudro.png")}`;
 ---
 
 <!doctype html>
@@ -45,7 +45,7 @@ const pageImage = ogImage ?? `${siteOrigin}/brand/wojciech-zudro.png`;
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={pageImage} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

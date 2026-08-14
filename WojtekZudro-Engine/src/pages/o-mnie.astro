@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { SITE_NAME, SITE_TAGLINE } from "../lib/site";
+import { SITE_NAME, SITE_TAGLINE, withBase } from "../lib/site";
 ---
 
 <SiteLayout
@@ -17,6 +17,6 @@ import { SITE_NAME, SITE_TAGLINE } from "../lib/site";
       Prowadzę sprawy biurowe tak, żebyś mógł zająć się firmą. Korespondencja, dokumenty i terminy
       zostają uporządkowane — dyskretnie i na czas.
     </p>
-    <a href="/kontakt" class="site-btn site-btn-primary">Umów rozmowę</a>
+    <a href={withBase("/kontakt")} class="site-btn site-btn-primary">Umów rozmowę</a>
   </section>
 </SiteLayout>
