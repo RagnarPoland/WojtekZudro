@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { categoryUrl, formatDate, postUrl } from "../lib/blog";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const articleUrl = postUrl(post.data.slug);
+const topicUrl = categoryUrl(post.data.category);
+---
+
+<article class="blog-card">
+  <header>
+    <p class="blog-card-meta">
+      <a href={topicUrl} class="gold-text blog-card-category">{post.data.category}</a>
+      <span>{formatDate(post.data.date)}</span>
+      <span>Przeczytasz w {post.data.readingTime} min</span>
+    </p>
+    <h3 class="blog-card-title">
+      <a href={articleUrl}>{post.data.title}</a>
+    </h3>
+  </header>
+  <p class="blog-card-description">{post.data.description}</p>
+  <p class="blog-card-link">
+    <a class="gold-text" href={articleUrl}>Czytaj więcej</a>
+  </p>
+</article>

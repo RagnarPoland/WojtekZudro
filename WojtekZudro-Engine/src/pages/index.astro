@@ -1,0 +1,124 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import {
+  HOME_CATEGORIES,
+  HOME_FEATURED,
+  HOME_LATEST,
+  HOME_POPULAR,
+  HOME_STATS,
+  SITE_NAME,
+  SITE_SERVICES,
+  SITE_TAGLINE,
+} from "../lib/site";
+---
+
+<SiteLayout
+  title={`${SITE_NAME} — ${SITE_TAGLINE}`}
+  description="Büroservice Wojciecha Zudro: sekretariat, dokumentacja i organizacja pracy biura. Dyskrecja, porządek i terminowość."
+>
+  <nav class="magazine-topics" aria-label="Tematy usług">
+    {
+      SITE_SERVICES.map((service) => (
+        <a class="magazine-topic" href={`/uslugi/${service.slug}`}>
+          {service.menuLabel}
+        </a>
+      ))
+    }
+  </nav>
+
+  <article class="magazine-featured">
+    <div class="magazine-featured-visual">
+      <img
+        src="/brand/wojciech-zudro.png?v=2"
+        alt="Wojciech Zudro — Büroservice"
+        width="900"
+        height="1125"
+      />
+    </div>
+    <div class="magazine-featured-copy">
+      <p class="magazine-kicker gold-text">{HOME_FEATURED.eyebrow}</p>
+      <h1 class="magazine-featured-title">{HOME_FEATURED.title}</h1>
+      <p class="magazine-featured-text">{HOME_FEATURED.text}</p>
+      <div class="home-hero-actions">
+        <a href="/kontakt" class="site-btn site-btn-primary">Umów rozmowę</a>
+        <a href="/uslugi/sekretariat" class="site-btn site-btn-secondary">Zobacz usługi</a>
+      </div>
+    </div>
+  </article>
+
+  <section class="magazine-section" aria-labelledby="latest-title">
+    <div class="magazine-section-head">
+      <h2 id="latest-title" class="magazine-section-title">Najnowsze na stronie</h2>
+      <p class="magazine-section-intro">Trzy obszary, od których najczęściej zaczyna się współpraca.</p>
+    </div>
+    <div class="magazine-card-grid magazine-card-grid-3">
+      {
+        HOME_LATEST.map((item) => (
+          <a class="magazine-card" href={`/uslugi/${item.slug}`}>
+            <p class="magazine-card-tag gold-text">{item.tag}</p>
+            <h3 class="magazine-card-title">{item.title}</h3>
+            <p class="magazine-card-text">{item.text}</p>
+            <span class="magazine-card-more">Czytaj dalej →</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="magazine-stats" aria-label="Sposób pracy">
+    {
+      HOME_STATS.map((stat) => (
+        <article class="magazine-stat">
+          <p class="magazine-stat-value gold-text">{stat.value}</p>
+          <p class="magazine-stat-label">{stat.label}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="magazine-section" aria-labelledby="popular-title">
+    <div class="magazine-section-head">
+      <h2 id="popular-title" class="magazine-section-title">Popularne w praktyce</h2>
+      <p class="magazine-section-intro">Tematy, które wracają w codziennej obsłudze biura.</p>
+    </div>
+    <div class="magazine-card-grid magazine-card-grid-3">
+      {
+        HOME_POPULAR.map((item) => (
+          <a class="magazine-card magazine-card-compact" href={`/uslugi/${item.slug}`}>
+            <p class="magazine-card-tag gold-text">{item.tag}</p>
+            <h3 class="magazine-card-title">{item.title}</h3>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    HOME_CATEGORIES.map((category) => (
+      <section class="magazine-section" aria-labelledby={`cat-${category.title.replace(/\s+/g, "-").toLowerCase()}`}>
+        <div class="magazine-section-head">
+          <h2 id={`cat-${category.title.replace(/\s+/g, "-").toLowerCase()}`} class="magazine-section-title">
+            {category.title}
+          </h2>
+        </div>
+        <div class="magazine-card-grid magazine-card-grid-3">
+          {category.items.map((item) => (
+            <a class="magazine-card magazine-card-compact" href={`/uslugi/${item.slug}`}>
+              <p class="magazine-card-tag gold-text">{item.tag}</p>
+              <h3 class="magazine-card-title">{item.title}</h3>
+              <p class="magazine-card-text">{item.text}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="home-final-cta">
+    <h2 class="home-final-title">Potrzebujesz spokojnego zaplecza biurowego?</h2>
+    <p class="home-final-text">
+      Opowiedz krótko, jak wygląda Twoje biuro — dopasujemy zakres Büroservice bez lania wody.
+    </p>
+    <a href="/kontakt" class="site-btn site-btn-primary">Umów rozmowę</a>
+  </section>
+</SiteLayout>

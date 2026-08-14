@@ -1,0 +1,33 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { SITE_SERVICES, getServiceBySlug } from "../../lib/site";
+
+export function getStaticPaths() {
+  return SITE_SERVICES.map((service) => ({
+    params: { slug: service.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const service = getServiceBySlug(String(slug));
+
+if (!service) {
+  throw new Error(`Nieznana usługa: ${slug}`);
+}
+---
+
+<SiteLayout
+  title={`${service.title} — Wojciech Zudro`}
+  description={service.description}
+>
+  <section class="simple-page">
+    <p class="magazine-kicker gold-text">{service.tag}</p>
+    <h1 class="simple-page-title">{service.title}</h1>
+    <p class="simple-page-lead">{service.description}</p>
+    <p class="simple-page-text">
+      Szczegółowy opis tej usługi uzupełnimy w kolejnym kroku. Na razie możesz umówić rozmowę
+      i opowiedzieć, jak wygląda Twoje biuro.
+    </p>
+    <a href="/kontakt" class="site-btn site-btn-primary">Umów rozmowę</a>
+  </section>
+</SiteLayout>

@@ -1,0 +1,16 @@
+# Hosting / gotowy build — wrzucasz na serwer, nie trzymamy w repo
+WojtekZudroWWW/
+
+# Engine
+WojtekZudro-Engine/node_modules/
+WojtekZudro-Engine/dist/
+WojtekZudro-Engine/.astro/
+WojtekZudro-Engine/.env
+WojtekZudro-Engine/.env.*
+
+# Logs i system
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/

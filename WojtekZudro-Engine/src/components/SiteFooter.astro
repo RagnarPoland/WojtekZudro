@@ -1,0 +1,16 @@
+---
+import { SITE_CONTACT, SITE_NAME } from "../lib/site";
+---
+
+<section class="site-footer-cta" aria-label="Kontakt">
+  <div class="site-footer-cta-inner">
+    <p class="site-footer-cta-lead gold-text">Porozmawiajmy o Twoim biurze</p>
+    <p class="site-footer-cta-text">
+      Napisz na
+      <a class="gold-text" href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
+      albo przejdź do
+      <a class="gold-text" href="/kontakt">strony kontaktowej</a>.
+    </p>
+    <p class="site-footer-copy">{SITE_NAME} · Büroservice</p>
+  </div>
+</section>

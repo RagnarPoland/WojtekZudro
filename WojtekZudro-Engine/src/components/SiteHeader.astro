@@ -1,0 +1,232 @@
+---
+import BrandMark from "./BrandMark.astro";
+import { SITE_NAV, getOfferMenuItems } from "../lib/site";
+
+const currentPath = Astro.url.pathname;
+const offerMenuItems = getOfferMenuItems();
+const isOfferSection = currentPath.startsWith("/uslugi");
+---
+
+<header class="site-header">
+  <BrandMark compact />
+
+  <button
+    class="site-menu-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="sitePrimaryMenu"
+    aria-label="Otwórz menu nawigacyjne"
+  >
+    <span class="site-menu-toggle-line" aria-hidden="true"></span>
+    <span class="site-menu-toggle-line" aria-hidden="true"></span>
+    <span class="site-menu-toggle-line" aria-hidden="true"></span>
+  </button>
+
+  <nav class="site-nav" id="sitePrimaryMenu" aria-label="Nawigacja główna">
+    {
+      SITE_NAV.map((item) => {
+        if (item.href === "/uslugi") {
+          return (
+            <>
+              <div
+                class:list={["site-nav-offer-desktop", { "is-active": isOfferSection }]}
+                data-offer-dropdown
+              >
+                <button
+                  type="button"
+                  class="site-nav-dropdown-trigger"
+                  aria-expanded="false"
+                  aria-controls="siteOfferDropdown"
+                  aria-haspopup="true"
+                >
+                  <span class="site-nav-dropdown-label">{item.label}</span>
+                  <span class="site-nav-dropdown-chevron" aria-hidden="true"></span>
+                </button>
+                <div class="site-nav-dropdown-hover-zone">
+                  <div class="site-nav-dropdown-bridge" aria-hidden="true"></div>
+                  <div id="siteOfferDropdown" class="site-nav-dropdown-panel">
+                    <p class="site-nav-dropdown-lead">
+                      Wybierz obszar, który <span class="gold-text">najlepiej pasuje</span> do Twojego biura
+                    </p>
+                    <div class="site-nav-dropdown-grid">
+                      {
+                        offerMenuItems.map((service) => (
+                          <a
+                            href={`/uslugi/${service.slug}`}
+                            class:list={[
+                              "site-nav-dropdown-item",
+                              { "is-active": currentPath === `/uslugi/${service.slug}` },
+                            ]}
+                          >
+                            <span class="site-nav-dropdown-item-title">{service.menuLabel}</span>
+                            <span class="site-nav-dropdown-item-desc">{service.menuDescription}</span>
+                          </a>
+                        ))
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class:list={["site-nav-offer-mobile", { "is-active": isOfferSection }]}
+                data-offer-accordion
+              >
+                <button
+                  type="button"
+                  class="site-nav-accordion-trigger"
+                  aria-expanded="false"
+                  aria-controls="siteOfferSubmenu"
+                >
+                  <span class="site-nav-accordion-dot" aria-hidden="true"></span>
+                  <span class="site-nav-accordion-label gold-text">{item.label}</span>
+                  <span class="site-nav-accordion-chevron" aria-hidden="true"></span>
+                </button>
+                <div id="siteOfferSubmenu" class="site-nav-submenu">
+                  {
+                    offerMenuItems.map((service) => (
+                      <a
+                        href={`/uslugi/${service.slug}`}
+                        class:list={[
+                          "site-nav-submenu-link",
+                          { "is-active": currentPath === `/uslugi/${service.slug}` },
+                        ]}
+                      >
+                        <span>{service.menuLabel}</span>
+                        <span class="site-nav-submenu-arrow" aria-hidden="true">→</span>
+                      </a>
+                    ))
+                  }
+                </div>
+              </div>
+            </>
+          );
+        }
+
+        return (
+          <a
+            href={item.href}
+            class:list={[
+              "site-nav-link",
+              {
+                "gold-text": item.highlight,
+                "is-active":
+                  currentPath.startsWith(item.href.replace(/\/$/, "")) && item.href !== "/",
+              },
+            ]}
+          >
+            {item.label}
+          </a>
+        );
+      })
+    }
+    <a href="/kontakt" class="site-nav-cta">Umów rozmowę</a>
+  </nav>
+</header>
+
+<script>
+  const header = document.querySelector(".site-header");
+  const toggle = document.querySelector(".site-menu-toggle");
+  const menu = document.querySelector("#sitePrimaryMenu");
+  const offerAccordion = document.querySelector("[data-offer-accordion]");
+  const offerTrigger = offerAccordion?.querySelector(".site-nav-accordion-trigger");
+  const offerDropdown = document.querySelector("[data-offer-dropdown]");
+  const dropdownTrigger = offerDropdown?.querySelector(".site-nav-dropdown-trigger");
+  const dropdownHoverZone = offerDropdown?.querySelector(".site-nav-dropdown-hover-zone");
+  let dropdownCloseTimer: ReturnType<typeof setTimeout> | undefined;
+  const desktopDropdownMedia = window.matchMedia("(hover: hover) and (min-width: 1024px)");
+
+  if (header && toggle && menu) {
+    const closeOfferAccordion = () => {
+      offerAccordion?.classList.remove("is-expanded");
+      offerTrigger?.setAttribute("aria-expanded", "false");
+    };
+
+    const closeOfferDropdown = () => {
+      if (dropdownCloseTimer) {
+        clearTimeout(dropdownCloseTimer);
+        dropdownCloseTimer = undefined;
+      }
+      offerDropdown?.classList.remove("is-open");
+      dropdownTrigger?.setAttribute("aria-expanded", "false");
+    };
+
+    const openOfferDropdown = () => {
+      if (!desktopDropdownMedia.matches) return;
+      if (dropdownCloseTimer) {
+        clearTimeout(dropdownCloseTimer);
+        dropdownCloseTimer = undefined;
+      }
+      offerDropdown?.classList.add("is-open");
+      dropdownTrigger?.setAttribute("aria-expanded", "true");
+    };
+
+    const scheduleCloseOfferDropdown = () => {
+      if (!desktopDropdownMedia.matches) return;
+      dropdownCloseTimer = setTimeout(closeOfferDropdown, 320);
+    };
+
+    const closeMenu = () => {
+      header.classList.remove("menu-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Otwórz menu nawigacyjne");
+      closeOfferAccordion();
+      closeOfferDropdown();
+    };
+
+    toggle.addEventListener("click", () => {
+      const isOpen = header.classList.contains("menu-open");
+      if (isOpen) closeMenu();
+      else {
+        closeOfferDropdown();
+        header.classList.add("menu-open");
+        toggle.setAttribute("aria-expanded", "true");
+        toggle.setAttribute("aria-label", "Zamknij menu nawigacyjne");
+      }
+    });
+
+    offerTrigger?.addEventListener("click", () => {
+      const isExpanded = offerAccordion?.classList.toggle("is-expanded") ?? false;
+      offerTrigger.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+    });
+
+    dropdownTrigger?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const isOpen = offerDropdown?.classList.toggle("is-open") ?? false;
+      dropdownTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    if (offerDropdown && dropdownHoverZone) {
+      [offerDropdown, dropdownHoverZone].forEach((element) => {
+        element.addEventListener("mouseenter", openOfferDropdown);
+        element.addEventListener("mouseleave", scheduleCloseOfferDropdown);
+      });
+    }
+
+    offerDropdown?.querySelectorAll(".site-nav-dropdown-item").forEach((link) => {
+      link.addEventListener("click", closeOfferDropdown);
+    });
+
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    document.addEventListener("click", (event) => {
+      const target = event.target as Node;
+      const clickedInsideDropdown =
+        offerDropdown?.contains(target) || dropdownHoverZone?.contains(target);
+      if (offerDropdown && !clickedInsideDropdown) {
+        closeOfferDropdown();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 1024) closeMenu();
+      else closeOfferDropdown();
+    });
+  }
+</script>

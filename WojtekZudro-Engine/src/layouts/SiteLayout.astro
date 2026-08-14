@@ -1,0 +1,65 @@
+---
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import { SITE_NAME, SITE_TAGLINE } from "../lib/site";
+import "../styles/global.css";
+import "../styles/site.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  hideFooter?: boolean;
+}
+
+const {
+  title = `${SITE_NAME} — ${SITE_TAGLINE}`,
+  description = "Büroservice Wojciecha Zudro: sekretariat, dokumentacja i organizacja pracy biura. Dyskrecja, porządek i terminowość.",
+  canonical,
+  ogImage,
+  hideFooter = false,
+} = Astro.props;
+
+const siteOrigin = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const pageUrl = canonical ?? `${siteOrigin}${Astro.url.pathname}`;
+const pageImage = ogImage ?? `${siteOrigin}/brand/wojciech-zudro.png`;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    {pageUrl && <link rel="canonical" href={pageUrl} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:site_name" content={`${SITE_NAME} ${SITE_TAGLINE}`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {pageUrl && <meta property="og:url" content={pageUrl} />}
+    <meta property="og:image" content={pageImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={pageImage} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="site-shell">
+      <slot />
+      {!hideFooter && <SiteFooter />}
+    </main>
+  </body>
+</html>

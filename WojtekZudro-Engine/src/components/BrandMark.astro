@@ -1,0 +1,24 @@
+---
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<a
+  href="/"
+  class:list={["brand-mark", { "is-compact": compact }]}
+  aria-label="Wojciech Zudro — Büroservice"
+>
+  <span class="brand-mark-mono" aria-hidden="true">
+    <span>W</span>
+    <span class="brand-mark-vline"></span>
+    <span>Z</span>
+  </span>
+  <span class="brand-mark-meta">
+    <span class="brand-mark-name">Wojciech · Zudro</span>
+    <span class="brand-mark-rule" aria-hidden="true"></span>
+    <span class="brand-mark-tag">Büroservice</span>
+  </span>
+</a>

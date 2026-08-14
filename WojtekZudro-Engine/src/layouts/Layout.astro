@@ -1,0 +1,69 @@
+---
+import FooterCta from "../components/FooterCta.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogType?: "website" | "article";
+  ogImage?: string;
+  ctaVariant?: "default" | "strategy" | "technical" | "local";
+  ctaLead?: string;
+  faqJsonLd?: Record<string, unknown>;
+}
+
+const {
+  title = "Wojciech Zudro — Büroservice",
+  description = "Büroservice Wojciecha Zudro: sekretariat, dokumentacja i organizacja pracy biura.",
+  canonical,
+  ogType = "website",
+  ogImage,
+  ctaVariant = "default",
+  ctaLead,
+  faqJsonLd,
+} = Astro.props;
+const siteOrigin = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const pageUrl = canonical ?? `${siteOrigin}${Astro.url.pathname}`;
+const pageImage = ogImage ?? `${siteOrigin}/favicon.svg`;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:site_name" content="Wojciech Zudro" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={pageImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={pageImage} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    {
+      faqJsonLd && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(faqJsonLd)}
+        />
+      )
+    }
+  </head>
+  <body>
+    <SiteHeader />
+    <main class="page-shell">
+      <slot />
+      <FooterCta variant={ctaVariant} lead={ctaLead} />
+    </main>
+  </body>
+</html>

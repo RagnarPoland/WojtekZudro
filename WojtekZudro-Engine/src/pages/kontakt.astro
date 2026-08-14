@@ -1,0 +1,23 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { SITE_CONTACT, SITE_NAME } from "../lib/site";
+---
+
+<SiteLayout
+  title={`Kontakt — ${SITE_NAME}`}
+  description="Skontaktuj się z Wojciechem Zudro — Büroservice. Umów rozmowę o sekretariacie, dokumentacji i organizacji biura."
+>
+  <section class="simple-page">
+    <p class="magazine-kicker gold-text">Kontakt</p>
+    <h1 class="simple-page-title">Porozmawiajmy o Twoim biurze</h1>
+    <p class="simple-page-lead">
+      Napisz, czego potrzebuje Twoje biuro — sekretariat, dokumenty albo organizacja tygodnia.
+      Oddzwonię lub odpiszę, żeby ustalić zakres.
+    </p>
+    <p class="contact-email">
+      E-mail:
+      <a class="gold-text" href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
+    </p>
+    <a href={`mailto:${SITE_CONTACT.email}`} class="site-btn site-btn-primary">Napisz wiadomość</a>
+  </section>
+</SiteLayout>

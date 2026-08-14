@@ -1,0 +1,29 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { SITE_SERVICES } from "../../lib/site";
+---
+
+<SiteLayout
+  title="Usługi — Wojciech Zudro"
+  description="Sekretariat, dokumentacja, administracja i organizacja pracy biura — Büroservice Wojciecha Zudro."
+>
+  <section class="simple-page">
+    <p class="magazine-kicker gold-text">Usługi</p>
+    <h1 class="simple-page-title">W czym mogę pomóc</h1>
+    <p class="simple-page-lead">
+      Cztery obszary Büroservice. Wybierz ten, który najlepiej pasuje do Twojego biura.
+    </p>
+  </section>
+  <div class="magazine-card-grid magazine-card-grid-3">
+    {
+      SITE_SERVICES.map((service) => (
+        <a class="magazine-card" href={`/uslugi/${service.slug}`}>
+          <p class="magazine-card-tag gold-text">{service.tag}</p>
+          <h2 class="magazine-card-title">{service.title}</h2>
+          <p class="magazine-card-text">{service.description}</p>
+          <span class="magazine-card-more">Zobacz →</span>
+        </a>
+      ))
+    }
+  </div>
+</SiteLayout>
