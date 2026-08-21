@@ -1,22 +1,22 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { SITE_NAME, SITE_TAGLINE, withBase } from "../lib/site";
+import { SITE_CTA, SITE_NAME, SITE_TAGLINE, withBase } from "../lib/site";
 ---
 
 <SiteLayout
   title={`O mnie — ${SITE_NAME}`}
-  description="Wojciech Zudro — Büroservice. Sekretariat, dokumentacja i organizacja pracy biura prowadzone osobiście, z dyskrecją i porządkiem."
+  description="Wojciech Zudro — Büroservice. Mieszkania, praca, świadczenia, kredyty, tłumaczenia i urzędy — osobiście, z dyskrecją i porządkiem."
 >
   <section class="simple-page">
     <p class="magazine-kicker gold-text">O mnie</p>
     <h1 class="simple-page-title">{SITE_NAME}</h1>
     <p class="simple-page-lead">
-      {SITE_TAGLINE} — osobista obsługa biura: sekretariat, dokumentacja i organizacja pracy.
+      {SITE_TAGLINE} — osobista pomoc w sprawach mieszkaniowych, zawodowych, urzędowych i dokumentach.
     </p>
     <p class="simple-page-text">
-      Prowadzę sprawy biurowe tak, żebyś mógł zająć się firmą. Korespondencja, dokumenty i terminy
-      zostają uporządkowane — dyskretnie i na czas.
+      Pomagam w sprawach, które wymagają spokoju, dokumentów i rozmowy z urzędem, właścicielem
+      albo pracodawcą — dyskretnie i na czas.
     </p>
-    <a href={withBase("/kontakt")} class="site-btn site-btn-primary">Umów rozmowę</a>
+    <a href={withBase("/kontakt")} class="site-btn site-btn-primary">{SITE_CTA.buttonPrimary}</a>
   </section>
 </SiteLayout>

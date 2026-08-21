@@ -1,6 +1,6 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { SITE_SERVICES, getServiceBySlug, withBase } from "../../lib/site";
+import { SITE_SERVICES, SITE_CTA, getServiceBySlug, getServiceDetails, withBase } from "../../lib/site";
 
 export function getStaticPaths() {
   return SITE_SERVICES.map((service) => ({
@@ -14,6 +14,8 @@ const service = getServiceBySlug(String(slug));
 if (!service) {
   throw new Error(`Nieznana usługa: ${slug}`);
 }
+
+const details = getServiceDetails(service.slug);
 ---
 
 <SiteLayout
@@ -24,10 +26,28 @@ if (!service) {
     <p class="magazine-kicker gold-text">{service.tag}</p>
     <h1 class="simple-page-title">{service.title}</h1>
     <p class="simple-page-lead">{service.description}</p>
-    <p class="simple-page-text">
-      Szczegółowy opis tej usługi uzupełnimy w kolejnym kroku. Na razie możesz umówić rozmowę
-      i opowiedzieć, jak wygląda Twoje biuro.
-    </p>
-    <a href={withBase("/kontakt")} class="site-btn site-btn-primary">Umów rozmowę</a>
+
+    {
+      details.length > 0 ? (
+        <ol class="service-scope">
+          {details.map((item) => (
+            <li class="service-scope-item">
+              <h2 class="service-scope-title">{item.title}</h2>
+              <p class="service-scope-text">{item.text}</p>
+              <a class="service-scope-more gold-text" href={withBase(`/uslugi/${service.slug}/${item.slug}`)}>
+                Czytaj dalej →
+              </a>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p class="simple-page-text">
+          Szczegółowy opis tej usługi uzupełnimy w kolejnym kroku. Na razie możesz umówić rozmowę
+          i opowiedzieć, czego dotyczy Twoja sprawa.
+        </p>
+      )
+    }
+
+    <a href={withBase("/kontakt")} class="site-btn site-btn-primary">{SITE_CTA.buttonPrimary}</a>
   </section>
 </SiteLayout>

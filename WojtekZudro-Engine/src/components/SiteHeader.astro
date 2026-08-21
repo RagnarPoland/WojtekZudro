@@ -1,6 +1,6 @@
 ---
 import BrandMark from "./BrandMark.astro";
-import { SITE_NAV, getOfferMenuItems, withBase, withoutBase } from "../lib/site";
+import { SITE_NAV, SITE_CTA, getOfferMenuItems, withBase, withoutBase } from "../lib/site";
 
 const currentPath = withoutBase(Astro.url.pathname);
 const offerMenuItems = getOfferMenuItems();
@@ -46,7 +46,7 @@ const isOfferSection = currentPath.startsWith("/uslugi");
                   <div class="site-nav-dropdown-bridge" aria-hidden="true"></div>
                   <div id="siteOfferDropdown" class="site-nav-dropdown-panel">
                     <p class="site-nav-dropdown-lead">
-                      Wybierz obszar, który <span class="gold-text">najlepiej pasuje</span> do Twojego biura
+                      Wybierz obszar, który <span class="gold-text">najlepiej pasuje</span> do Twojej sprawy
                     </p>
                     <div class="site-nav-dropdown-grid">
                       {
@@ -120,7 +120,7 @@ const isOfferSection = currentPath.startsWith("/uslugi");
         );
       })
     }
-    <a href={withBase("/kontakt")} class="site-nav-cta">Umów rozmowę</a>
+    <a href={withBase("/kontakt")} class="site-nav-cta">{SITE_CTA.buttonMenu}</a>
   </nav>
 </header>
 
@@ -132,9 +132,6 @@ const isOfferSection = currentPath.startsWith("/uslugi");
   const offerTrigger = offerAccordion?.querySelector(".site-nav-accordion-trigger");
   const offerDropdown = document.querySelector("[data-offer-dropdown]");
   const dropdownTrigger = offerDropdown?.querySelector(".site-nav-dropdown-trigger");
-  const dropdownHoverZone = offerDropdown?.querySelector(".site-nav-dropdown-hover-zone");
-  let dropdownCloseTimer: ReturnType<typeof setTimeout> | undefined;
-  const desktopDropdownMedia = window.matchMedia("(hover: hover) and (min-width: 1024px)");
 
   if (header && toggle && menu) {
     const closeOfferAccordion = () => {
@@ -143,27 +140,8 @@ const isOfferSection = currentPath.startsWith("/uslugi");
     };
 
     const closeOfferDropdown = () => {
-      if (dropdownCloseTimer) {
-        clearTimeout(dropdownCloseTimer);
-        dropdownCloseTimer = undefined;
-      }
       offerDropdown?.classList.remove("is-open");
       dropdownTrigger?.setAttribute("aria-expanded", "false");
-    };
-
-    const openOfferDropdown = () => {
-      if (!desktopDropdownMedia.matches) return;
-      if (dropdownCloseTimer) {
-        clearTimeout(dropdownCloseTimer);
-        dropdownCloseTimer = undefined;
-      }
-      offerDropdown?.classList.add("is-open");
-      dropdownTrigger?.setAttribute("aria-expanded", "true");
-    };
-
-    const scheduleCloseOfferDropdown = () => {
-      if (!desktopDropdownMedia.matches) return;
-      dropdownCloseTimer = setTimeout(closeOfferDropdown, 320);
     };
 
     const closeMenu = () => {
@@ -196,13 +174,6 @@ const isOfferSection = currentPath.startsWith("/uslugi");
       dropdownTrigger.setAttribute("aria-expanded", isOpen ? "true" : "false");
     });
 
-    if (offerDropdown && dropdownHoverZone) {
-      [offerDropdown, dropdownHoverZone].forEach((element) => {
-        element.addEventListener("mouseenter", openOfferDropdown);
-        element.addEventListener("mouseleave", scheduleCloseOfferDropdown);
-      });
-    }
-
     offerDropdown?.querySelectorAll(".site-nav-dropdown-item").forEach((link) => {
       link.addEventListener("click", closeOfferDropdown);
     });
@@ -213,9 +184,7 @@ const isOfferSection = currentPath.startsWith("/uslugi");
 
     document.addEventListener("click", (event) => {
       const target = event.target as Node;
-      const clickedInsideDropdown =
-        offerDropdown?.contains(target) || dropdownHoverZone?.contains(target);
-      if (offerDropdown && !clickedInsideDropdown) {
+      if (offerDropdown && !offerDropdown.contains(target)) {
         closeOfferDropdown();
       }
     });

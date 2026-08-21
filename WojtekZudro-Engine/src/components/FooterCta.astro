@@ -1,4 +1,6 @@
 ---
+import { SITE_CONTACT, SITE_CTA, withBase } from "../lib/site";
+
 interface Props {
   variant?: "default" | "strategy" | "technical" | "local";
   lead?: string;
@@ -8,43 +10,43 @@ const { variant = "default", lead } = Astro.props;
 
 const CTA_BY_VARIANT = {
   default: {
-    lead: "Masz pytania po lekturze?",
+    lead: SITE_CTA.footerLead,
     tail: "Napisz na",
     tail2: "albo przejdź do",
-    formLabel: "formularza kontaktowego",
+    formLabel: "strony kontaktowej",
   },
   strategy: {
-    lead: "Chcesz plan SEO pod Twoją branżę i budżet?",
-    tail: "Napisz na",
-    tail2: "albo wyślij brief przez",
-    formLabel: "formularz kontaktowy",
-  },
-  technical: {
-    lead: "Chcesz techniczny audyt strony i listę priorytetów wdrożeniowych?",
+    lead: "Szukasz mieszkania albo domu i chcesz mieć to ogarnięte?",
     tail: "Napisz na",
     tail2: "albo przejdź do",
-    formLabel: "formularza kontaktowego",
+    formLabel: "strony kontaktowej",
+  },
+  technical: {
+    lead: "Masz pismo z urzędu albo formalność, która nie może poczekać?",
+    tail: "Napisz na",
+    tail2: "albo przejdź do",
+    formLabel: "strony kontaktowej",
   },
   local: {
-    lead: "Chcesz poprawić widoczność lokalną i wizytówkę Google?",
+    lead: "Potrzebujesz pomocy przy pracy, świadczeniach albo dokumentach?",
     tail: "Napisz na",
-    tail2: "albo zostaw wiadomość w",
-    formLabel: "formularzu kontaktowym",
+    tail2: "albo przejdź do",
+    formLabel: "strony kontaktowej",
   },
 } as const;
 
 const fallback = CTA_BY_VARIANT[variant];
 const ctaLead = lead ?? fallback.lead;
 const tail = lead
-  ? { tail: "Napisz na", tail2: "albo wyślij brief przez", formLabel: "formularz kontaktowy" }
+  ? { tail: "Napisz na", tail2: "albo przejdź do", formLabel: "strony kontaktowej" }
   : fallback;
 ---
 
 <section class="site-footer-cta" aria-label="Kontakt i CTA">
   <p>
     {ctaLead} {tail.tail}
-    <a class="gold-text" href="mailto:kontakt@wojciechzudro.pl">kontakt@wojciechzudro.pl</a>
+    <a class="gold-text" href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
     {" "}{tail.tail2}
-    <a class="gold-text" href="/kontakt">{tail.formLabel}</a>.
+    <a class="gold-text" href={withBase("/kontakt")}>{tail.formLabel}</a>.
   </p>
 </section>

@@ -7,7 +7,7 @@ import {
   HOME_POPULAR,
   HOME_STATS,
   SITE_NAME,
-  SITE_SERVICES,
+  SITE_CTA,
   SITE_TAGLINE,
   withBase,
 } from "../lib/site";
@@ -15,18 +15,8 @@ import {
 
 <SiteLayout
   title={`${SITE_NAME} — ${SITE_TAGLINE}`}
-  description="Büroservice Wojciecha Zudro: sekretariat, dokumentacja i organizacja pracy biura. Dyskrecja, porządek i terminowość."
+  description="Büroservice Wojciecha Zudro: mieszkania, praca, świadczenia, kredyty, tłumaczenia i urzędy. Dyskrecja, porządek i terminowość."
 >
-  <nav class="magazine-topics" aria-label="Tematy usług">
-    {
-      SITE_SERVICES.map((service) => (
-        <a class="magazine-topic" href={withBase(`/uslugi/${service.slug}`)}>
-          {service.menuLabel}
-        </a>
-      ))
-    }
-  </nav>
-
   <article class="magazine-featured">
     <div class="magazine-featured-visual">
       <img
@@ -41,8 +31,8 @@ import {
       <h1 class="magazine-featured-title">{HOME_FEATURED.title}</h1>
       <p class="magazine-featured-text">{HOME_FEATURED.text}</p>
       <div class="home-hero-actions">
-        <a href={withBase("/kontakt")} class="site-btn site-btn-primary">Umów rozmowę</a>
-        <a href={withBase("/uslugi/sekretariat")} class="site-btn site-btn-secondary">Zobacz usługi</a>
+        <a href={withBase("/kontakt")} class="site-btn site-btn-primary">{SITE_CTA.buttonPrimary}</a>
+        <a href={withBase("/uslugi")} class="site-btn site-btn-secondary">Zobacz usługi</a>
       </div>
     </div>
   </article>
@@ -50,7 +40,6 @@ import {
   <section class="magazine-section" aria-labelledby="latest-title">
     <div class="magazine-section-head">
       <h2 id="latest-title" class="magazine-section-title">Najnowsze na stronie</h2>
-      <p class="magazine-section-intro">Trzy obszary, od których najczęściej zaczyna się współpraca.</p>
     </div>
     <div class="magazine-card-grid magazine-card-grid-3">
       {
@@ -80,7 +69,6 @@ import {
   <section class="magazine-section" aria-labelledby="popular-title">
     <div class="magazine-section-head">
       <h2 id="popular-title" class="magazine-section-title">Popularne w praktyce</h2>
-      <p class="magazine-section-intro">Tematy, które wracają w codziennej obsłudze biura.</p>
     </div>
     <div class="magazine-card-grid magazine-card-grid-3">
       {
@@ -116,10 +104,8 @@ import {
   }
 
   <section class="home-final-cta">
-    <h2 class="home-final-title">Potrzebujesz spokojnego zaplecza biurowego?</h2>
-    <p class="home-final-text">
-      Opowiedz krótko, jak wygląda Twoje biuro — dopasujemy zakres Büroservice bez lania wody.
-    </p>
-    <a href={withBase("/kontakt")} class="site-btn site-btn-primary">Umów rozmowę</a>
+    <h2 class="home-final-title">{SITE_CTA.homeTitle}</h2>
+    <p class="home-final-text">{SITE_CTA.homeText}</p>
+    <a href={withBase("/kontakt")} class="site-btn site-btn-primary">{SITE_CTA.buttonPrimary}</a>
   </section>
 </SiteLayout>

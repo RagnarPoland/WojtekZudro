@@ -1,23 +1,38 @@
 ---
+import ContactChannels from "../components/ContactChannels.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { SITE_CONTACT, SITE_NAME } from "../lib/site";
+import { SITE_CONTACT, SITE_CTA, SITE_NAME } from "../lib/site";
 ---
 
 <SiteLayout
   title={`Kontakt — ${SITE_NAME}`}
-  description="Skontaktuj się z Wojciechem Zudro — Büroservice. Umów rozmowę o sekretariacie, dokumentacji i organizacji biura."
+  description="Skontaktuj się z Wojciechem Zudro — Büroservice. WhatsApp, Messenger lub e-mail — mieszkanie, praca, świadczenia, kredyt, tłumaczenie albo urząd."
 >
-  <section class="simple-page">
-    <p class="magazine-kicker gold-text">Kontakt</p>
-    <h1 class="simple-page-title">Porozmawiajmy o Twoim biurze</h1>
-    <p class="simple-page-lead">
-      Napisz, czego potrzebuje Twoje biuro — sekretariat, dokumenty albo organizacja tygodnia.
-      Oddzwonię lub odpiszę, żeby ustalić zakres.
-    </p>
-    <p class="contact-email">
-      E-mail:
-      <a class="gold-text" href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
-    </p>
-    <a href={`mailto:${SITE_CONTACT.email}`} class="site-btn site-btn-primary">Napisz wiadomość</a>
+  <section class="simple-page contact-page">
+    <div class="contact-hero">
+      <div class="contact-hero-copy">
+        <p class="magazine-kicker gold-text">Kontakt</p>
+        <h1 class="simple-page-title contact-title">{SITE_CTA.contactTitle}</h1>
+        <p class="simple-page-lead contact-lead">
+          Opowiedz, w jakiej sprawie potrzebujesz pomocy — mieszkanie, praca, świadczenia, kredyt,
+          tłumaczenie albo urząd. Oddzwonię lub odpiszę, żeby ustalić zakres.
+        </p>
+        <p class="contact-email">
+          E-mail:
+          <a class="gold-text" href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
+        </p>
+        <a href={`mailto:${SITE_CONTACT.email}`} class="site-btn site-btn-primary contact-email-btn">
+          {SITE_CTA.buttonSecondary}
+        </a>
+      </div>
+
+      <aside class="contact-hero-aside" aria-label="Szybki kontakt">
+        <div class="contact-info-card">
+          <p class="contact-info-label gold-text">Najszybciej odpowiadam</p>
+          <p class="contact-info-text">Tutaj najszybciej odpowiadam — napisz na WhatsApp albo Messengerze.</p>
+          <ContactChannels />
+        </div>
+      </aside>
+    </div>
   </section>
 </SiteLayout>
