@@ -1,22 +1,90 @@
 ---
+import AboutGallery from "../components/AboutGallery.astro";
+import AboutPageMotion from "../components/AboutPageMotion.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { SITE_CTA, SITE_NAME, SITE_TAGLINE, withBase } from "../lib/site";
+
+const aboutPhotos = [
+  { src: "/wojtek2.jpg", alt: "Wojciech Zudro — emigracja i języki" },
+  { src: "/wojtek1.jpg", alt: "Wojciech Zudro — portret" },
+  { src: "/wojtek3.jpg", alt: "Wojciech Zudro — pomoc w urzędach i formalnościach" },
+  { src: "/wojtek4.jpg", alt: "Wojciech Zudro — Büroservice w Bebertalu" },
+  { src: "/wojtek5.jpg", alt: "Wojciech Zudro — spotkanie i rozmowa" },
+  { src: "/wojtek6.jpg", alt: "Wojciech Zudro — zaproszenie do kontaktu" },
+] as const;
+
+const aboutBody = [
+  "Doskonale wiem, jak to jest wylądować w obcym kraju, trzymając w ręku plik urzędowych pism, które wyglądają jak pisane szyfrem.",
+  "Na emigracji jestem od 2010 roku, a od 2018 roku moim miejscem na ziemi są Niemcy. Zanim jednak tutaj osiadłem, zwiedziłem kawałek Europy, zbierając doświadczenia, poznając ludzi i przede wszystkim chłonąc języki – bo to od zawsze moja największa pasja. Dziś bez problemu dogaduję się po niemiecku, angielsku i niderlandzku, a żeby głowa nie miała zbyt łatwo, w wolnych chwilach wgryzam się w tajniki arabskiego.",
+  "Pomaganie rodakom zaczęło się u mnie zupełnie naturalnie. Najpierw była to sąsiedzka przysługa przy szukaniu czterech kątów czy garażu, potem wspólne wyprawy do urzędów, żeby oswoić słynną „niemiecką papierologię”, aż wreszcie tłumaczenia u notariuszy, prawników czy na policji. Z czasem z tej pasji i chęci ułatwiania ludziom życia powstała moja oficjalna działalność – Büroservice.",
+  "Moja baza mieści się w Bebertalu pod Magdeburgiem, ale z problemami moich klientów walczę na terenie całych Niemiec – i to bez względu na to, czy jest środek tygodnia, czy weekend, bo życie rzadko pyta urzędy o godziny otwarcia. Najważniejsze jest dla mnie to, żeby zdjąć z Twoich barków zbędny stres i po prostu doprowadzić każdą sprawę do szczęśliwego finału.",
+  "Jeśli masz ochotę sprawdzić, jak to działa w praktyce, wpadnij do mnie na dobrą kawę do biura, zdzwońmy się na kamerce albo po prostu pogadajmy przez telefon. Pierwsza rozmowa jest zawsze całkowicie niezobowiązująca i darmowa. A jeśli akurat nie odbiorę – spokojnie, prawdopodobnie tłumaczę właśnie czyjś meldunek albo walczę z formularzem i oddzwonię najszybciej, jak to możliwe!",
+] as const;
 ---
 
 <SiteLayout
   title={`O mnie — ${SITE_NAME}`}
-  description="Wojciech Zudro — Büroservice. Mieszkania, praca, świadczenia, kredyty, tłumaczenia i urzędy — osobiście, z dyskrecją i porządkiem."
+  description="Wojciech Zudro — Büroservice. Emigracja, języki i pomoc w urzędach, mieszkaniach i formalnościach w całych Niemczech — osobiście i bez zbędnego stresu."
 >
-  <section class="simple-page">
-    <p class="magazine-kicker gold-text">O mnie</p>
-    <h1 class="simple-page-title">{SITE_NAME}</h1>
-    <p class="simple-page-lead">
-      {SITE_TAGLINE} — osobista pomoc w sprawach mieszkaniowych, zawodowych, urzędowych i dokumentach.
-    </p>
-    <p class="simple-page-text">
-      Pomagam w sprawach, które wymagają spokoju, dokumentów i rozmowy z urzędem, właścicielem
-      albo pracodawcą — dyskretnie i na czas.
-    </p>
-    <a href={withBase("/kontakt")} class="site-btn site-btn-primary">{SITE_CTA.buttonPrimary}</a>
+  <section class="about-editorial">
+    <div class="about-editorial-grid">
+      <aside class="about-editorial-media" aria-label="Zdjęcia">
+        <AboutGallery photos={aboutPhotos} />
+      </aside>
+
+      <div class="about-editorial-panel">
+        <div class="about-editorial-panel-inner">
+          <p class="about-editorial-greeting about-reveal" data-about-reveal="immediate" data-reveal-delay="100">
+            Cześć!
+          </p>
+          <h1
+            class="about-editorial-name about-reveal"
+            data-about-reveal="immediate"
+            data-reveal-delay="200"
+          >
+            Jestem {SITE_NAME}
+          </h1>
+          <p
+            class="about-editorial-tagline about-reveal"
+            data-about-reveal="immediate"
+            data-reveal-delay="300"
+          >
+            {SITE_TAGLINE} — od lat pomagam rodakom w Niemczech.
+          </p>
+
+          <div class="about-editorial-body">
+            {
+              aboutBody.map((paragraph, index) => (
+                <p
+                  class:list={[
+                    "about-editorial-text",
+                    "about-reveal",
+                    index % 2 === 1 && "about-editorial-text-align-right",
+                  ]}
+                  data-about-reveal="scroll"
+                >
+                  {paragraph}
+                </p>
+              ))
+            }
+          </div>
+
+          <p class="about-editorial-closer about-reveal" data-about-reveal="scroll">
+            Chętnie zdejmę z Twoich barków zbędny stres i doprowadzę sprawę do szczęśliwego finału.
+          </p>
+
+          <a
+            href={withBase("/kontakt")}
+            class="site-btn site-btn-primary about-editorial-cta about-reveal"
+            data-about-reveal="scroll"
+            data-reveal-delay="100"
+          >
+            {SITE_CTA.buttonPrimary}
+          </a>
+        </div>
+      </div>
+    </div>
   </section>
+
+  <AboutPageMotion />
 </SiteLayout>

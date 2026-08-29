@@ -1,0 +1,110 @@
+---
+import { withBase } from "../lib/site";
+
+interface Photo {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  photos: readonly Photo[];
+  initialIndex?: number;
+}
+
+const { photos, initialIndex = 0 } = Astro.props;
+const activeIndex = Math.min(Math.max(initialIndex, 0), photos.length - 1);
+const initial = photos[activeIndex];
+---
+
+<div class="about-gallery" data-about-gallery>
+  <figure class="about-gallery-main about-reveal" data-about-reveal="immediate" data-reveal-delay="0">
+    <img
+      data-about-main
+      class="about-gallery-main-image"
+      src={withBase(initial.src)}
+      alt={initial.alt}
+      width="720"
+      height="900"
+      loading="eager"
+    />
+  </figure>
+  <div class="about-gallery-thumbs" role="tablist" aria-label="Galeria zdjęć">
+    {
+      photos.map((photo, index) => (
+        <button
+          type="button"
+          class:list={["about-gallery-thumb", "about-reveal", index === activeIndex && "is-active"]}
+          data-about-reveal="immediate"
+          data-reveal-delay={String(120 + index * 60)}
+          role="tab"
+          aria-selected={index === activeIndex ? "true" : "false"}
+          aria-label={photo.alt}
+          data-src={withBase(photo.src)}
+          data-alt={photo.alt}
+        >
+          <img src={withBase(photo.src)} alt="" width="96" height="120" loading="lazy" />
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  function initAboutGallery(root: HTMLElement) {
+    const main = root.querySelector<HTMLImageElement>("[data-about-main]");
+    const buttons = root.querySelectorAll<HTMLButtonElement>(".about-gallery-thumb");
+
+    if (!main || buttons.length === 0) return;
+
+    const swapImage = (src: string, alt: string) => {
+      if (main.src === src) return;
+
+      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduced) {
+        main.src = src;
+        main.alt = alt;
+        return;
+      }
+
+      main.classList.add("is-swapping");
+
+      window.setTimeout(() => {
+        const onLoad = () => {
+          main.classList.remove("is-swapping");
+          main.removeEventListener("load", onLoad);
+        };
+
+        main.addEventListener("load", onLoad);
+        main.src = src;
+        main.alt = alt;
+
+        if (main.complete) {
+          onLoad();
+        }
+      }, 160);
+    };
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const src = button.dataset.src;
+        const alt = button.dataset.alt;
+        if (!src || !alt) return;
+
+        swapImage(src, alt);
+
+        buttons.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-selected", active ? "true" : "false");
+        });
+      });
+    });
+  }
+
+  function initAllAboutGalleries() {
+    document.querySelectorAll<HTMLElement>("[data-about-gallery]").forEach(initAboutGallery);
+  }
+
+  initAllAboutGalleries();
+  document.addEventListener("astro:page-load", initAllAboutGalleries);
+</script>

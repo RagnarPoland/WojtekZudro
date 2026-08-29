@@ -1,0 +1,42 @@
+<script>
+  function initAboutReveals() {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const items = document.querySelectorAll<HTMLElement>("[data-about-reveal]");
+
+    if (reduced) {
+      items.forEach((item) => item.classList.add("is-visible"));
+      return;
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-about-reveal="immediate"]').forEach((item) => {
+      const delay = Number(item.dataset.revealDelay ?? "0");
+      window.setTimeout(() => item.classList.add("is-visible"), delay);
+    });
+
+    const scrollItems = document.querySelectorAll<HTMLElement>('[data-about-reveal="scroll"]');
+    if (scrollItems.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const item = entry.target as HTMLElement;
+          const delay = Number(item.dataset.revealDelay ?? "0");
+
+          window.setTimeout(() => item.classList.add("is-visible"), delay);
+          observer.unobserve(item);
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -8% 0px",
+      },
+    );
+
+    scrollItems.forEach((item) => observer.observe(item));
+  }
+
+  initAboutReveals();
+  document.addEventListener("astro:page-load", initAboutReveals);
+</script>
