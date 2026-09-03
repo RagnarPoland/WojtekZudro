@@ -18,15 +18,27 @@ const initial = photos[activeIndex];
 
 <div class="about-gallery" data-about-gallery>
   <figure class="about-gallery-main about-reveal" data-about-reveal="immediate" data-reveal-delay="0">
-    <img
-      data-about-main
-      class="about-gallery-main-image"
-      src={withBase(initial.src)}
-      alt={initial.alt}
-      width="720"
-      height="900"
-      loading="eager"
-    />
+    <div class="about-gallery-stage">
+      <img
+        data-about-layer="0"
+        class="about-gallery-layer is-active"
+        src={withBase(initial.src)}
+        alt={initial.alt}
+        width="720"
+        height="900"
+        loading="eager"
+      />
+      <img
+        data-about-layer="1"
+        class="about-gallery-layer"
+        src={withBase(initial.src)}
+        alt=""
+        aria-hidden="true"
+        width="720"
+        height="900"
+        loading="eager"
+      />
+    </div>
   </figure>
   <div class="about-gallery-thumbs" role="tablist" aria-label="Galeria zdjęć">
     {
@@ -51,54 +63,139 @@ const initial = photos[activeIndex];
 
 <script>
   function initAboutGallery(root: HTMLElement) {
-    const main = root.querySelector<HTMLImageElement>("[data-about-main]");
-    const buttons = root.querySelectorAll<HTMLButtonElement>(".about-gallery-thumb");
+    const layers = Array.from(root.querySelectorAll<HTMLImageElement>("[data-about-layer]"));
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>(".about-gallery-thumb"));
 
-    if (!main || buttons.length === 0) return;
+    if (layers.length < 2 || buttons.length === 0) return;
 
-    const swapImage = (src: string, alt: string) => {
-      if (main.src === src) return;
+    const existingTimer = root.dataset.galleryTimer;
+    if (existingTimer) {
+      window.clearInterval(Number(existingTimer));
+      delete root.dataset.galleryTimer;
+    }
 
-      const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (reduced) {
-        main.src = src;
-        main.alt = alt;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let activeLayerIndex = 0;
+    let currentIndex = buttons.findIndex((button) => button.classList.contains("is-active"));
+    if (currentIndex < 0) currentIndex = 0;
+
+    let isTransitioning = false;
+
+    const preloadImage = (src: string) => {
+      const img = new Image();
+      img.src = src;
+    };
+
+    const preloadNext = (index: number) => {
+      const nextIndex = (index + 1) % buttons.length;
+      const src = buttons[nextIndex]?.dataset.src;
+      if (src) preloadImage(src);
+    };
+
+    const crossfadeTo = (src: string, alt: string) => {
+      const current = layers[activeLayerIndex];
+      if (current.src === src && current.alt === alt) return;
+
+      if (reducedMotion) {
+        current.src = src;
+        current.alt = alt;
+        current.removeAttribute("aria-hidden");
+        layers[1 - activeLayerIndex].setAttribute("aria-hidden", "true");
         return;
       }
 
-      main.classList.add("is-swapping");
+      if (isTransitioning) return;
+      isTransitioning = true;
 
-      window.setTimeout(() => {
-        const onLoad = () => {
-          main.classList.remove("is-swapping");
-          main.removeEventListener("load", onLoad);
-        };
+      const nextLayerIndex = activeLayerIndex === 0 ? 1 : 0;
+      const next = layers[nextLayerIndex];
 
-        main.addEventListener("load", onLoad);
-        main.src = src;
-        main.alt = alt;
+      const finishTransition = () => {
+        if (!isTransitioning) return;
 
-        if (main.complete) {
-          onLoad();
-        }
-      }, 160);
+        current.classList.remove("is-active", "is-leaving");
+        current.setAttribute("aria-hidden", "true");
+
+        next.classList.remove("is-entering");
+        next.classList.add("is-active");
+        next.removeAttribute("aria-hidden");
+
+        activeLayerIndex = nextLayerIndex;
+        isTransitioning = false;
+      };
+
+      let started = false;
+      const startTransition = () => {
+        if (started) return;
+        started = true;
+
+        next.src = src;
+        next.alt = alt;
+        next.classList.remove("is-active", "is-leaving");
+        next.classList.add("is-entering");
+
+        void next.offsetWidth;
+
+        current.classList.remove("is-active");
+        current.classList.add("is-leaving");
+        next.classList.add("is-active");
+
+        next.addEventListener("transitionend", finishTransition, { once: true });
+        window.setTimeout(finishTransition, 1600);
+      };
+
+      const loader = new Image();
+      loader.onload = startTransition;
+      loader.onerror = () => {
+        isTransitioning = false;
+      };
+      loader.src = src;
+
+      if (loader.complete) startTransition();
     };
 
-    buttons.forEach((button) => {
+    const setActive = (index: number) => {
+      const button = buttons[index];
+      const src = button.dataset.src;
+      const alt = button.dataset.alt;
+      if (!src || !alt) return;
+
+      currentIndex = index;
+      crossfadeTo(src, alt);
+      preloadNext(index);
+
+      buttons.forEach((item, itemIndex) => {
+        const active = itemIndex === index;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-selected", active ? "true" : "false");
+      });
+    };
+
+    const startAutoplay = () => {
+      if (reducedMotion || buttons.length < 2) return;
+
+      const timerId = window.setInterval(() => {
+        setActive((currentIndex + 1) % buttons.length);
+      }, 5000);
+
+      root.dataset.galleryTimer = String(timerId);
+    };
+
+    const restartAutoplay = () => {
+      const timer = root.dataset.galleryTimer;
+      if (timer) window.clearInterval(Number(timer));
+      startAutoplay();
+    };
+
+    buttons.forEach((button, index) => {
       button.addEventListener("click", () => {
-        const src = button.dataset.src;
-        const alt = button.dataset.alt;
-        if (!src || !alt) return;
-
-        swapImage(src, alt);
-
-        buttons.forEach((item) => {
-          const active = item === button;
-          item.classList.toggle("is-active", active);
-          item.setAttribute("aria-selected", active ? "true" : "false");
-        });
+        setActive(index);
+        restartAutoplay();
       });
     });
+
+    preloadNext(currentIndex);
+    startAutoplay();
   }
 
   function initAllAboutGalleries() {

@@ -8,8 +8,9 @@ export const SITE_NAV = [
 ] as const;
 
 export const SITE_CONTACT = {
-  email: "kontakt@wojciechzudro.pl",
-  phone: "+4915510084276",
+  email: "wzudro@gmail.com",
+  phone: "+4815510084276",
+  phoneDisplay: "+48 155 10084276",
   whatsappUrl: "https://wa.me/4915510084276",
   messengerUrl: "https://m.me/wojciechzudro",
 } as const;

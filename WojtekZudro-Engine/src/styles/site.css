@@ -525,13 +525,15 @@
   max-width: 52ch;
 }
 
-.contact-email {
+.contact-email,
+.contact-phone {
   margin: 1.1rem 0 0;
   color: #d0d0d0;
   font-size: 1.02rem;
 }
 
-.contact-email a {
+.contact-email a,
+.contact-phone a {
   text-decoration: none;
   font-weight: 600;
 }
@@ -1062,20 +1064,53 @@
   opacity: 1;
 }
 
-.about-gallery-main-image {
-  display: block;
-  width: 100%;
-  height: auto;
+.about-gallery-stage {
+  position: relative;
   aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center;
-  transition:
-    opacity 0.3s ease,
-    transform 0.55s ease;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
 }
 
-.about-gallery-main-image.is-swapping {
+.about-gallery-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   opacity: 0;
+  transform: scale(1.07);
+  z-index: 0;
+  transition:
+    opacity 1.05s cubic-bezier(0.45, 0, 0.15, 1),
+    transform 1.35s cubic-bezier(0.45, 0, 0.15, 1);
+}
+
+.about-gallery-layer.is-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.about-gallery-layer.is-leaving {
+  opacity: 0;
+  transform: scale(1);
+  z-index: 1;
+  transition:
+    opacity 0.95s cubic-bezier(0.45, 0, 0.15, 1),
+    transform 1.35s cubic-bezier(0.45, 0, 0.15, 1);
+}
+
+.about-gallery-layer.is-entering {
+  opacity: 0;
+  transform: scale(1.07);
+  z-index: 2;
+}
+
+.about-gallery-layer.is-entering.is-active {
+  opacity: 1;
+  transform: scale(1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1087,10 +1122,14 @@
     transition: none;
   }
 
-  .about-gallery-main-image,
-  .about-gallery-main-image.is-swapping {
-    opacity: 1;
+  .about-gallery-layer {
+    opacity: 0;
+    transform: none;
     transition: none;
+  }
+
+  .about-gallery-layer.is-active {
+    opacity: 1;
   }
 
   .about-gallery-thumb.about-reveal.is-visible {
@@ -1133,15 +1172,6 @@
   background: rgba(255, 255, 255, 0.03);
 }
 
-.about-gallery-main img {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  object-position: center;
-}
-
 .about-gallery-thumbs {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -1158,9 +1188,10 @@
   cursor: pointer;
   opacity: 0.72;
   transition:
-    opacity 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+    opacity 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
 }
 
 .about-gallery-thumb:hover {
@@ -1357,7 +1388,7 @@
     position: static;
   }
 
-  .about-gallery-main img {
+  .about-gallery-stage {
     aspect-ratio: 16 / 11;
   }
 
