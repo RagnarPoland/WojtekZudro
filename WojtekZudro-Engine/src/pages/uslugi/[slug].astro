@@ -34,9 +34,6 @@ const details = getServiceDetails(service.slug);
             <li class="service-scope-item">
               <h2 class="service-scope-title">{item.title}</h2>
               <p class="service-scope-text">{item.text}</p>
-              <a class="service-scope-more gold-text" href={withBase(`/uslugi/${service.slug}/${item.slug}`)}>
-                Czytaj dalej →
-              </a>
             </li>
           ))}
         </ol>

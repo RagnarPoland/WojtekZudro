@@ -41,20 +41,20 @@ export const SITE_SERVICES = [
   },
   {
     menuLabel: "Praca i sprawy zawodowe",
-    menuDescription: "Praca, Gewerbe, zatrudnienie i dokumenty zawodowe.",
+    menuDescription: "Praca, Gewerbe, BAB, zatrudnienie i dokumenty zawodowe.",
     title: "Praca i sprawy zawodowe",
     description:
-      "Od szukania pracy i założenia Gewerbe, przez sprawy zatrudnienia, aż po dokumenty i formalności zawodowe.",
+      "Od szukania pracy i założenia Gewerbe, przez BAB i sprawy zatrudnienia, aż po dokumenty i formalności zawodowe.",
     tag: "Praca",
     slug: "praca-i-sprawy-zawodowe",
     excerpt: "Praca, Gewerbe i papiery zawodowe ogarnięte spokojnie i na czas.",
   },
   {
     menuLabel: "Świadczenia socjalne",
-    menuDescription: "Arbeitslosengeld, Bürgergeld, Wohngeld, Kindergeld i inne wnioski.",
+    menuDescription: "Arbeitslosengeld, Bürgergeld, Kindergeld, BuT, BAföG i inne wnioski.",
     title: "Świadczenia socjalne",
     description:
-      "Od Arbeitslosengeld i Bürgergeld, przez Wohngeld i Kindergeld, aż po wypełnianie wniosków i kompletowanie dokumentów.",
+      "Od Arbeitslosengeld i Bürgergeld, przez Kindergeld, BuT i BAföG, aż po wnioski o opiekę, alimenty i kompletowanie dokumentów.",
     tag: "Świadczenia",
     slug: "swiadczenia-socjalne",
     excerpt: "Wnioski o świadczenia i załączniki prowadzone krok po kroku.",
@@ -198,12 +198,17 @@ export const SERVICE_DETAILS = {
     {
       slug: "pomoc-przy-zalozeniu-gewerbe",
       title: "Pomoc przy założeniu Gewerbe",
-      text: "Pomagam założyć Gewerbe: jakie formularze, gdzie złożyć i co przygotować przed startem działalności.",
+      text: "Gewerbe to samodzielna działalność rejestrowana w Gewerbeamt (Gewerbeanmeldung) — informacja trafia m.in. do Finanzamt. Nebengewerbe to ta sama forma, ale prowadzona dodatkowo obok etatu, np. sprzątanie czy handel po pracy. Pomagam wybrać właściwy wariant, wypełnić formularze i przygotować się przed startem — bez mylenia z Kleingewerbe czy Kleinunternehmerregelung.",
     },
     {
       slug: "pomoc-w-sprawach-zwiazanych-z-zatrudnieniem",
       title: "Pomoc w sprawach związanych z zatrudnieniem",
       text: "Kontakt z pracodawcą, umowa, wypowiedzenie albo zaświadczenia — prowadzę sprawę, żeby dokumenty były kompletne.",
+    },
+    {
+      slug: "berufsausbildungsbeihilfe-bab",
+      title: "Berufsausbildungsbeihilfe (BAB)",
+      text: "Berufsausbildungsbeihilfe (BAB) to pomoc finansowa dla osób odbywających Ausbildung, gdy wynagrodzenie z nauki zawodu nie wystarcza na utrzymanie. Wniosek składa się np. w Agentur für Arbeit — zależy od sytuacji rodzinnej i dochodów. Pomagam sprawdzić warunki, wypełnić wniosek i kompletować dokumenty.",
     },
     {
       slug: "pomoc-przy-dokumentach-i-formalnosciach-zawodowych",
@@ -215,32 +220,67 @@ export const SERVICE_DETAILS = {
     {
       slug: "arbeitslosengeld",
       title: "Arbeitslosengeld",
-      text: "Pomagam ogarnąć wniosek o zasiłek dla bezrobotnych: formularze, terminy i brakujące dokumenty.",
+      text: "Arbeitslosengeld I to zasiłek po utracie pracy dla osób, które opłacały składki na ubezpieczenie od bezrobocia — zwykle potrzeba 12 miesięcy ubezpieczenia w ostatnich 30 miesiącach. Wypłaca Agentur für Arbeit, wysokość to ok. 60% wynagrodzenia netto (67% przy dziecku). Pomagam złożyć wniosek, dokumenty i terminy.",
     },
     {
       slug: "burgergeld",
       title: "Bürgergeld",
-      text: "Przygotowuję wniosek o Bürgergeld — dochody, załączniki i korespondencja z urzędem bez chaosu.",
+      text: "Bürgergeld (Grundsicherungsgeld) to zabezpieczenie, gdy dochody i środki nie wystarczają na utrzymanie — także gdy pracujesz, ale zarobki są za niskie. Jobcenter bierze pod uwagę dochody, majątek i całe gospodarstwo domowe; może pokrywać koszty mieszkania i ogrzewania. W ramach Grundsicherung mogą też przysługiwać Mehrbedarf (np. w ciąży) oraz jednorazowe świadczenia na szczególne potrzeby. Pomagam z wnioskiem, załącznikami i korespondencją.",
     },
     {
       slug: "wohngeld",
       title: "Wohngeld",
-      text: "Pomagam złożyć wniosek o dopłatę do czynszu: dane o lokalu, dochodach i wymagane zaświadczenia.",
+      text: "Wohngeld to dopłata do kosztów mieszkania dla osób o niższych dochodach, które same się utrzymują, ale czynsz stanowi duże obciążenie. Najemcy otrzymują Mietzuschuss, właściciele mieszkający we własnej nieruchomości — Lastenzuschuss. Wysokość zależy od dochodów, liczby osób i kosztów lokalu; zwykle nie łączy się ze świadczeniem obejmującym już mieszkanie. Pomagam złożyć wniosek i kompletować dokumenty.",
     },
     {
       slug: "kindergeld",
       title: "Kindergeld",
-      text: "Wniosek o Kindergeld i ewentualne uzupełnienia — żeby świadczenie ruszyło bez zbędnych opóźnień.",
+      text: "Kindergeld to zasiłek rodzinny na utrzymanie dziecka — w 2026 roku 259 € miesięcznie na każde dziecko. Przysługuje do 18. roku życia, a przy nauce czy studiach do 25 lat; nie zależy bezpośrednio od wysokości zarobków rodziców. Pomagam z wnioskiem i ewentualnymi uzupełnieniami.",
     },
     {
       slug: "kinderzuschlag",
       title: "Kinderzuschlag",
-      text: "Pomagam przy Kinderzuschlag: sprawdzam warunki, kompletuję dokumenty i pilnuję terminów.",
+      text: "Kinderzuschlag (KiZ) to dodatek dla rodzin, których dochody wystarczają na utrzymanie rodziców, ale nie na pełne potrzeby całej rodziny — warunkiem jest pobieranie Kindergeld. Można go łączyć z Wohngeld; wysokość zależy od sytuacji finansowej. Sprawdzam warunki, kompletuję dokumenty i pilnuję terminów.",
     },
     {
       slug: "elterngeld",
       title: "Elterngeld",
-      text: "Przygotowuję wniosek o Elterngeld — terminy, załączniki od pracodawcy i jasne ustalenia co złożyć.",
+      text: "Elterngeld to świadczenie rodzicielskie po narodzinach dziecka — częściowo rekompensuje utracone dochody, gdy ograniczasz pracę lub z niej rezygnujesz, by opiekować się maluchem. Są warianty Basiselterngeld, ElterngeldPlus i Partnerschaftsbonus; można je dostać także bez wcześniejszych dochodów, pracując max. 32 h tygodniowo. Pomagam wybrać wariant, terminy i załączniki od pracodawcy.",
+    },
+    {
+      slug: "mutterschaftsgeld",
+      title: "Mutterschaftsgeld",
+      text: "Mutterschaftsgeld to świadczenie związane z okresem ochronnym przed i po porodzie — dla kobiet spełniających warunki ubezpieczenia. Wypłaca je zazwyczaj ubezpieczalnia; wysokość i terminy zależą od sytuacji. Pomagam z wnioskiem, zaświadczeniami i kontaktem z instytucją.",
+    },
+    {
+      slug: "unterhaltsvorschuss",
+      title: "Unterhaltsvorschuss",
+      text: "Unterhaltsvorschuss to zaliczka na alimenty dla dziecka wychowywanego przez jednego rodzica, gdy drugi rodzic nie płaci, płaci nieregularnie albo za mało. Wniosek składa się zazwyczaj w Jugendamt. Pomagam złożyć wniosek, dokumenty i korespondencją z urzędem.",
+    },
+    {
+      slug: "bildung-und-teilhabe",
+      title: "Bildung und Teilhabe (BuT)",
+      text: "Bildung und Teilhabe (BuT) to pomoc dla dzieci z rodzin o niższych dochodach — na wycieczki szkolne, obiady, zajęcia dodatkowe i wybrane wydatki związane ze szkołą. Mogą z niej korzystać m.in. dzieci z rodzin pobierających Wohngeld lub Kinderzuschlag. Pomagam sprawdzić uprawnienia i złożyć wniosek.",
+    },
+    {
+      slug: "bafog",
+      title: "BAföG",
+      text: "BAföG to pomoc finansowa dla uczniów i studentów — wysokość i warunki zależą od sytuacji rodziny, dochodów i formy nauki. Pomagam ustalić, czy przysługuje, wypełnić wniosek i przygotować wymagane dokumenty.",
+    },
+    {
+      slug: "grundsicherung-im-alter",
+      title: "Grundsicherung im Alter und bei Erwerbsminderung",
+      text: "Grundsicherung im Alter und bei Erwerbsminderung to zabezpieczenie podstawowych potrzeb dla osób w wieku emerytalnym oraz osób trwale całkowicie niezdolnych do pracy, gdy własne środki są niewystarczające. Pomagam z wnioskiem, dochodami, majątkiem i korespondencją z urzędem.",
+    },
+    {
+      slug: "hilfe-zum-lebensunterhalt",
+      title: "Hilfe zum Lebensunterhalt (Sozialhilfe)",
+      text: "Hilfe zum Lebensunterhalt (Sozialhilfe) to pomoc dla osób w trudnej sytuacji finansowej, które nie kwalifikują się do podstawowego zabezpieczenia dla osób zdolnych do pracy. Pomagam ustalić właściwy tryb, wypełnić wniosek i zebrać dokumenty.",
+    },
+    {
+      slug: "hilfe-zur-pflege",
+      title: "Hilfe zur Pflege",
+      text: "Hilfe zur Pflege to pomoc w kosztach opieki dla osób wymagających opieki, gdy własne środki i inne świadczenia nie wystarczają. Zależy od stopnia opieki i sytuacji finansowej. Pomagam z wnioskiem, załącznikami i kontaktem z urzędem opieki.",
     },
     {
       slug: "pomoc-przy-wypelnianiu-wnioskow",
