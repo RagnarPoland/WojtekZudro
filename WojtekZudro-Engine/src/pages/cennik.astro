@@ -1,0 +1,42 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { SITE_CTA, SITE_NAME, SITE_PRICING, withBase } from "../lib/site";
+---
+
+<SiteLayout
+  title={`Cennik — ${SITE_NAME}`}
+  description="Przykładowy cennik Büroservice Wojciecha Zudro — mieszkania, praca, świadczenia, tłumaczenia i urzędy. Pierwsza rozmowa bezpłatna."
+>
+  <section class="simple-page pricing-page">
+    <p class="magazine-kicker gold-text">Cennik</p>
+    <h1 class="simple-page-title">Przykładowe stawki</h1>
+    <p class="simple-page-lead">{SITE_PRICING.lead}</p>
+
+    <div class="pricing-grid">
+      {
+        SITE_PRICING.categories.map((category) => (
+          <section class="pricing-category">
+            <h2 class="pricing-category-title">{category.title}</h2>
+            <ul class="pricing-list">
+              {category.items.map((item) => (
+                <li class="pricing-item">
+                  <div class="pricing-item-head">
+                    <h3 class="pricing-item-name">{item.name}</h3>
+                    <p class="pricing-item-price gold-text">{item.price}</p>
+                  </div>
+                  <p class="pricing-item-detail">{item.detail}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <p class="pricing-note">{SITE_PRICING.note}</p>
+
+    <a href={withBase("/kontakt")} class="site-btn site-btn-primary pricing-cta">
+      {SITE_CTA.buttonMenu}
+    </a>
+  </section>
+</SiteLayout>

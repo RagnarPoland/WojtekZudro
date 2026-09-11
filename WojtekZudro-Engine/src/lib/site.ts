@@ -4,15 +4,18 @@ export const SITE_TAGLINE = "Büroservice";
 export const SITE_NAV = [
   { href: "/uslugi", label: "Usługi", highlight: true },
   { href: "/o-mnie", label: "O mnie" },
-  { href: "/kontakt", label: "Kontakt" },
+  { href: "/cennik", label: "Cennik" },
 ] as const;
 
 export const SITE_CONTACT = {
   email: "wzudro@gmail.com",
-  phone: "+4815510084276",
-  phoneDisplay: "+48 155 10084276",
+  phone: "+4915510084276",
+  phoneDisplay: "+49 155 10084276",
   whatsappUrl: "https://wa.me/4915510084276",
   messengerUrl: "https://m.me/wojciechzudro",
+  googleBusinessUrl:
+    "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVhScVgyaHFOM0p3GAo",
+  facebookUrl: "https://www.facebook.com/p/B%C3%BCroservice-Zudro-61592739958994/",
 } as const;
 
 export const SITE_CTA = {
@@ -28,6 +31,120 @@ export const SITE_CTA = {
   buttonSecondary: "Napisz wiadomość",
 } as const;
 
+export const SITE_PRICING = {
+  lead:
+    "Poniżej przykładowy cennik orientacyjny. Dokładną wycenę ustalimy po krótkiej rozmowie — zakres każdej sprawy bywa inny.",
+  note:
+    "Ceny przykładowe, netto. Pierwsza rozmowa wstępna jest bezpłatna i niezobowiązująca. Przy większych sprawach możliwy pakiet lub stała współpraca.",
+  categories: [
+    {
+      title: "Konsultacja",
+      items: [
+        {
+          name: "Pierwsza rozmowa wstępna",
+          price: "Bezpłatnie",
+          detail: "Telefon, WhatsApp, Messenger lub spotkanie online — ustalamy zakres sprawy.",
+        },
+        {
+          name: "Konsultacja rozszerzona",
+          price: "od 49 €",
+          detail: "Szczegółowa analiza dokumentów i plan działania (do ok. 1 godz.).",
+        },
+      ],
+    },
+    {
+      title: "Mieszkania i domy",
+      items: [
+        {
+          name: "Pomoc przy szukaniu mieszkania lub domu",
+          price: "od 299 €",
+          detail: "Przykładowa stawka startowa — wycena zależy od lokalizacji, terminu i zakresu.",
+        },
+        {
+          name: "Obecność przy oględzinach i negocjacjach",
+          price: "od 79 €",
+          detail: "Tłumaczenie na miejscu, pytania do wynajmującego, ustalenia wstępne.",
+        },
+        {
+          name: "Meldunek, prąd, internet",
+          price: "od 69 €",
+          detail: "Formalności po wprowadzeniu — formularze, kontakt z dostawcami.",
+        },
+        {
+          name: "Tłumaczenie umowy najmu",
+          price: "od 59 €",
+          detail: "Omówienie warunków i tłumaczenie kluczowych zapisów przed podpisem.",
+        },
+      ],
+    },
+    {
+      title: "Praca i formalności zawodowe",
+      items: [
+        {
+          name: "Założenie Gewerbe",
+          price: "od 149 €",
+          detail: "Przygotowanie do rejestracji, formularze, kontakt z Gewerbeamt.",
+        },
+        {
+          name: "Freistellungsbescheinigung (§ 48b EStG)",
+          price: "od 199 €",
+          detail: "Wniosek do Finanzamt, dokumenty, korespondencja dla firm budowlanych.",
+        },
+        {
+          name: "Dokumenty zawodowe i kontakt z pracodawcą",
+          price: "od 65 € / godz.",
+          detail: "Umowy, zaświadczenia, wypowiedzenia — według czasu pracy.",
+        },
+      ],
+    },
+    {
+      title: "Świadczenia socjalne",
+      items: [
+        {
+          name: "Wypełnienie wniosku o świadczenie",
+          price: "od 89 €",
+          detail: "Arbeitslosengeld, Bürgergeld, Kindergeld, Wohngeld i inne — pojedynczy wniosek.",
+        },
+        {
+          name: "Kompletowanie dokumentów do wniosku",
+          price: "od 59 €",
+          detail: "Zebranie załączników, porządek w pismach, checklista braków.",
+        },
+      ],
+    },
+    {
+      title: "Tłumaczenia",
+      items: [
+        {
+          name: "Tłumaczenie ustne (PL ↔ DE)",
+          price: "od 45 € / godz.",
+          detail: "Urząd, lekarz, bank, notariusz, telefon — stawka za rozpoczętą godzinę.",
+        },
+        {
+          name: "Tłumaczenie pisemne",
+          price: "od 0,12 € / słowo",
+          detail: "Pisma, umowy, formularze — wycena po obejrzeniu dokumentu.",
+        },
+      ],
+    },
+    {
+      title: "Urzędy i formalności",
+      items: [
+        {
+          name: "Kontakt z urzędem w Twoim imieniu",
+          price: "od 65 € / godz.",
+          detail: "Telefon, e-mail, umawianie terminów, ustalenia z instytucją.",
+        },
+        {
+          name: "Wypełnianie formularzy urzędowych",
+          price: "od 79 €",
+          detail: "Formularze i wnioski — w zależności od liczby stron i złożoności.",
+        },
+      ],
+    },
+  ],
+} as const;
+
 export const SITE_SERVICES = [
   {
     menuLabel: "Mieszkania i domy",
@@ -41,10 +158,10 @@ export const SITE_SERVICES = [
   },
   {
     menuLabel: "Praca i sprawy zawodowe",
-    menuDescription: "Praca, Gewerbe, BAB, zatrudnienie i dokumenty zawodowe.",
+    menuDescription: "Praca, Gewerbe, Freistellung § 48b, BAB i dokumenty zawodowe.",
     title: "Praca i sprawy zawodowe",
     description:
-      "Od szukania pracy i założenia Gewerbe, przez BAB i sprawy zatrudnienia, aż po dokumenty i formalności zawodowe.",
+      "Od szukania pracy i założenia Gewerbe, przez Freistellungsbescheinigung, BAB i sprawy zatrudnienia, aż po dokumenty i formalności zawodowe.",
     tag: "Praca",
     slug: "praca-i-sprawy-zawodowe",
     excerpt: "Praca, Gewerbe i papiery zawodowe ogarnięte spokojnie i na czas.",
@@ -71,10 +188,10 @@ export const SITE_SERVICES = [
   },
   {
     menuLabel: "Tłumaczenia",
-    menuDescription: "Ustne, pisemne i telefoniczne — u notariusza, lekarza, urzędu i banku.",
+    menuDescription: "Zwykłe i przysięgłe — ustne, pisemne i telefoniczne, u notariusza, lekarza, w urzędzie i banku.",
     title: "Tłumaczenia",
     description:
-      "Tłumaczenia polsko-niemieckie: ustne, pisemne i telefoniczne — u notariusza, prawnika, lekarza, urzędu, banku i spółdzielni.",
+      "Tłumaczenia polsko-niemieckie — zwykłe i przysięgłe: ustne, pisemne i telefoniczne — u notariusza, prawnika, lekarza, w urzędzie, banku i spółdzielni.",
     tag: "Tłumaczenia",
     slug: "tlumaczenia",
     excerpt: "Dokumenty w jasnym języku, gotowe do złożenia.",
@@ -206,6 +323,11 @@ export const SERVICE_DETAILS = {
       text: "Kontakt z pracodawcą, umowa, wypowiedzenie albo zaświadczenia — prowadzę sprawę, żeby dokumenty były kompletne.",
     },
     {
+      slug: "freistellungsbescheinigung-48b-estg",
+      title: "Freistellungsbescheinigung (§ 48b EStG)",
+      text: "Pomoc w uzyskaniu dla polskich firm i podwykonawców wykonujących prace budowlane w Niemczech. Freistellungsbescheinigung nach § 48b EStG to zaświadczenie wydawane przez niemiecki Finanzamt — dzięki niemu zleceniodawca zasadniczo nie potrąca 15% Bauabzugsteuer z wynagrodzenia polskiej firmy za usługi budowlane. Bez ważnego Freistellung zleceniodawca jest co do zasady zobowiązany do takiego potrącenia. Finanzamt może wymagać m.in. polskiego zaświadczenia o rezydencji podatkowej oraz dodatkowych informacji dotyczących działalności budowlanej. Pomagam złożyć wniosek, kompletować dokumenty i prowadzić korespondencję z urzędem skarbowym.",
+    },
+    {
       slug: "berufsausbildungsbeihilfe-bab",
       title: "Berufsausbildungsbeihilfe (BAB)",
       text: "Berufsausbildungsbeihilfe (BAB) to pomoc finansowa dla osób odbywających Ausbildung, gdy wynagrodzenie z nauki zawodu nie wystarcza na utrzymanie. Wniosek składa się np. w Agentur für Arbeit — zależy od sytuacji rodzinnej i dochodów. Pomagam sprawdzić warunki, wypełnić wniosek i kompletować dokumenty.",
@@ -335,6 +457,11 @@ export const SERVICE_DETAILS = {
       slug: "tlumaczenia-podczas-wizyt-u-prawnikow",
       title: "Tłumaczenia podczas wizyt u prawników",
       text: "Przy wizycie u prawnika tłumaczę pytania, odpowiedzi i ustalenia — bez zgadywania.",
+    },
+    {
+      slug: "tlumaczenia-na-policji",
+      title: "Tłumaczenia na policji",
+      text: "Tłumaczę rozmowę na komisariacie — zeznania, wyjaśnienia i ustalenia z policją, żebyś wiedział, o co chodzi i co podpisujesz.",
     },
     {
       slug: "tlumaczenia-podczas-wizyt-u-lekarzy",

@@ -452,6 +452,11 @@
   line-height: 1.55;
 }
 
+.site-footer-cta .contact-channels {
+  margin-top: 0.15rem;
+  margin-bottom: 0.15rem;
+}
+
 @media (max-width: 1023px) {
   .home-hero {
     padding-top: 2.25rem;
@@ -605,6 +610,14 @@
 
 .contact-channel-messenger:hover {
   color: #0084ff;
+}
+
+.contact-channel-facebook:hover {
+  color: #1877f2;
+}
+
+.contact-channel-google:hover {
+  color: #ea4335;
 }
 
 .contact-chat {
@@ -1462,6 +1475,106 @@
   margin: 0 0 1.5rem;
   line-height: 1.7;
   color: var(--text);
+}
+
+.pricing-page {
+  max-width: 860px;
+}
+
+.pricing-grid {
+  display: grid;
+  gap: 1.35rem;
+  margin-bottom: 1.5rem;
+}
+
+.pricing-category {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(12, 28, 24, 0.9));
+  box-shadow: inset 3px 0 0 rgba(197, 160, 89, 0.55);
+  overflow: hidden;
+}
+
+.pricing-category-title {
+  margin: 0;
+  padding: 0.95rem 1.15rem 0.75rem;
+  border-bottom: 1px solid rgba(197, 160, 89, 0.18);
+  font-family: var(--serif);
+  font-size: 1.28rem;
+  font-weight: 600;
+  color: var(--gold-b);
+}
+
+.pricing-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pricing-item {
+  padding: 0.95rem 1.15rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pricing-item:first-child {
+  border-top: none;
+}
+
+.pricing-item-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.pricing-item-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #f4ead2;
+}
+
+.pricing-item-price {
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.pricing-item-detail {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.55;
+}
+
+.pricing-note {
+  margin: 0 0 1.35rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(197, 160, 89, 0.22);
+  border-radius: 10px;
+  background: rgba(197, 160, 89, 0.06);
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.6;
+}
+
+.pricing-cta {
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 640px) {
+  .pricing-item-head {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .pricing-item-price {
+    white-space: normal;
+  }
 }
 
 .service-scope {

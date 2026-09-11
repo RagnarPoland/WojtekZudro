@@ -80,6 +80,15 @@ const initial = photos[activeIndex];
     if (currentIndex < 0) currentIndex = 0;
 
     let isTransitioning = false;
+    let transitionUnlockTimer = 0;
+
+    const normalizeSrc = (value: string) => {
+      try {
+        return new URL(value, window.location.href).href;
+      } catch {
+        return value;
+      }
+    };
 
     const preloadImage = (src: string) => {
       const img = new Image();
@@ -92,20 +101,40 @@ const initial = photos[activeIndex];
       if (src) preloadImage(src);
     };
 
+    const swapInstant = (src: string, alt: string) => {
+      const current = layers[activeLayerIndex];
+      const nextLayerIndex = activeLayerIndex === 0 ? 1 : 0;
+      const next = layers[nextLayerIndex];
+
+      next.src = src;
+      next.alt = alt;
+      next.classList.remove("is-leaving", "is-entering");
+      next.classList.add("is-active");
+      next.removeAttribute("aria-hidden");
+
+      current.classList.remove("is-active", "is-leaving", "is-entering");
+      current.setAttribute("aria-hidden", "true");
+
+      activeLayerIndex = nextLayerIndex;
+      isTransitioning = false;
+    };
+
     const crossfadeTo = (src: string, alt: string) => {
       const current = layers[activeLayerIndex];
-      if (current.src === src && current.alt === alt) return;
+      if (normalizeSrc(current.src) === normalizeSrc(src) && current.alt === alt) return;
 
       if (reducedMotion) {
-        current.src = src;
-        current.alt = alt;
-        current.removeAttribute("aria-hidden");
-        layers[1 - activeLayerIndex].setAttribute("aria-hidden", "true");
+        swapInstant(src, alt);
         return;
       }
 
       if (isTransitioning) return;
       isTransitioning = true;
+
+      if (transitionUnlockTimer) window.clearTimeout(transitionUnlockTimer);
+      transitionUnlockTimer = window.setTimeout(() => {
+        isTransitioning = false;
+      }, 2200);
 
       const nextLayerIndex = activeLayerIndex === 0 ? 1 : 0;
       const next = layers[nextLayerIndex];
@@ -113,7 +142,7 @@ const initial = photos[activeIndex];
       const finishTransition = () => {
         if (!isTransitioning) return;
 
-        current.classList.remove("is-active", "is-leaving");
+        current.classList.remove("is-active", "is-leaving", "is-entering");
         current.setAttribute("aria-hidden", "true");
 
         next.classList.remove("is-entering");
@@ -122,6 +151,11 @@ const initial = photos[activeIndex];
 
         activeLayerIndex = nextLayerIndex;
         isTransitioning = false;
+
+        if (transitionUnlockTimer) {
+          window.clearTimeout(transitionUnlockTimer);
+          transitionUnlockTimer = 0;
+        }
       };
 
       let started = false;
@@ -134,20 +168,22 @@ const initial = photos[activeIndex];
         next.classList.remove("is-active", "is-leaving");
         next.classList.add("is-entering");
 
-        void next.offsetWidth;
-
-        current.classList.remove("is-active");
-        current.classList.add("is-leaving");
-        next.classList.add("is-active");
-
-        next.addEventListener("transitionend", finishTransition, { once: true });
-        window.setTimeout(finishTransition, 1600);
+        requestAnimationFrame(() => {
+          current.classList.remove("is-active");
+          current.classList.add("is-leaving");
+          next.classList.add("is-active");
+          window.setTimeout(finishTransition, 1400);
+        });
       };
 
       const loader = new Image();
       loader.onload = startTransition;
       loader.onerror = () => {
-        isTransitioning = false;
+        swapInstant(src, alt);
+        if (transitionUnlockTimer) {
+          window.clearTimeout(transitionUnlockTimer);
+          transitionUnlockTimer = 0;
+        }
       };
       loader.src = src;
 
@@ -172,9 +208,10 @@ const initial = photos[activeIndex];
     };
 
     const startAutoplay = () => {
-      if (reducedMotion || buttons.length < 2) return;
+      if (buttons.length < 2) return;
 
       const timerId = window.setInterval(() => {
+        if (document.hidden || isTransitioning) return;
         setActive((currentIndex + 1) % buttons.length);
       }, 5000);
 
@@ -192,6 +229,10 @@ const initial = photos[activeIndex];
         setActive(index);
         restartAutoplay();
       });
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) restartAutoplay();
     });
 
     preloadNext(currentIndex);

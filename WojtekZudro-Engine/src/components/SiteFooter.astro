@@ -1,4 +1,5 @@
 ---
+import ContactChannels from "./ContactChannels.astro";
 import { SITE_CONTACT, SITE_CTA, SITE_NAME, withBase } from "../lib/site";
 ---
 
@@ -11,6 +12,7 @@ import { SITE_CONTACT, SITE_CTA, SITE_NAME, withBase } from "../lib/site";
       albo przejdź do
       <a class="gold-text" href={withBase("/kontakt")}>strony kontaktowej</a>.
     </p>
+    <ContactChannels />
     <p class="site-footer-copy">{SITE_NAME} · Büroservice</p>
   </div>
 </section>
