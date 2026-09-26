@@ -25,16 +25,37 @@ import { SITE_CONTACT, SITE_CTA, SITE_NAME } from "../lib/site";
           E-mail:
           <a class="gold-text" href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
         </p>
+        <p class="contact-office">
+          Adres biura:
+          <span class="contact-office-value">{SITE_CONTACT.officeAddress}</span>
+        </p>
+        <p class="contact-tax">
+          Numer podatkowy (Steuernummer):
+          <span class="contact-tax-value">{SITE_CONTACT.taxNumber}</span>
+        </p>
         <a href={`mailto:${SITE_CONTACT.email}`} class="site-btn site-btn-primary contact-email-btn">
-          {SITE_CTA.buttonSecondary}
+          {SITE_CTA.buttonMenu}
         </a>
       </div>
 
-      <aside class="contact-hero-aside" aria-label="Szybki kontakt">
+      <aside class="contact-hero-aside" aria-label="Szybki kontakt i mapa">
         <div class="contact-info-card">
           <p class="contact-info-label gold-text">Najszybciej odpowiadam</p>
           <p class="contact-info-text">Tutaj najszybciej odpowiadam — napisz na WhatsApp, Messengerze albo odwiedź fanpage.</p>
           <ContactChannels />
+        </div>
+
+        <div class="contact-map-card">
+          <p class="contact-info-label gold-text">Biuro w Bebertalu</p>
+          <p class="contact-map-address">{SITE_CONTACT.officeAddress}</p>
+          <div class="contact-map-wrap">
+            <iframe
+              title={`Mapa Google — ${SITE_CONTACT.officeAddress}`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(SITE_CONTACT.officeAddress)}&z=17&t=k&output=embed`}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
         </div>
       </aside>
     </div>

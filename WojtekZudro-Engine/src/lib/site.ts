@@ -16,6 +16,10 @@ export const SITE_CONTACT = {
   googleBusinessUrl:
     "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVhScVgyaHFOM0p3GAo",
   facebookUrl: "https://www.facebook.com/p/B%C3%BCroservice-Zudro-61592739958994/",
+  linkedinUrl:
+    "https://www.linkedin.com/in/wojciech-%C5%BCdudro-281311202?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
+  officeAddress: "Waldsiedlung 3E, 39343 Bebertal",
+  taxNumber: "St. Nr.: 105/293/00986",
 } as const;
 
 export const SITE_CTA = {
@@ -49,6 +53,11 @@ export const SITE_PRICING = {
           name: "Konsultacja rozszerzona",
           price: "od 49 €",
           detail: "Szczegółowa analiza dokumentów i plan działania (do ok. 1 godz.).",
+        },
+        {
+          name: "Dojazd do klienta",
+          price: "0,25 € / km",
+          detail: "Podróż poza biurem — według rzeczywistej liczby kilometrów.",
         },
       ],
     },

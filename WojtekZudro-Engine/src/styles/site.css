@@ -531,7 +531,9 @@
 }
 
 .contact-email,
-.contact-phone {
+.contact-phone,
+.contact-office,
+.contact-tax {
   margin: 1.1rem 0 0;
   color: #d0d0d0;
   font-size: 1.02rem;
@@ -541,6 +543,14 @@
 .contact-phone a {
   text-decoration: none;
   font-weight: 600;
+}
+
+.contact-office-value,
+.contact-tax-value {
+  display: block;
+  margin-top: 0.2rem;
+  color: #ececec;
+  font-weight: 500;
 }
 
 .contact-hero-aside {
@@ -567,6 +577,37 @@
   color: var(--muted);
   line-height: 1.6;
   font-size: 0.95rem;
+}
+
+.contact-map-card {
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--surface);
+  padding: 1rem 1.05rem 1.05rem;
+}
+
+.contact-map-address {
+  margin: 0 0 0.75rem;
+  color: #ececec;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.contact-map-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  aspect-ratio: 4 / 3;
+}
+
+.contact-map-wrap iframe {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 .contact-channels {
@@ -618,6 +659,10 @@
 
 .contact-channel-google:hover {
   color: #ea4335;
+}
+
+.contact-channel-linkedin:hover {
+  color: #0a66c2;
 }
 
 .contact-chat {
