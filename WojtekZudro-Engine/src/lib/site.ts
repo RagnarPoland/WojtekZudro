@@ -19,7 +19,7 @@ export const SITE_CONTACT = {
   linkedinUrl:
     "https://www.linkedin.com/in/wojciech-%C5%BCdudro-281311202?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
   officeAddress: "Waldsiedlung 3E, 39343 Bebertal",
-  taxNumber: "St. Nr.: 105/293/00986",
+  taxNumber: "St.-Nr.: 105/293/00986",
 } as const;
 
 export const SITE_CTA = {
@@ -125,12 +125,12 @@ export const SITE_PRICING = {
       title: "Tłumaczenia",
       items: [
         {
-          name: "Tłumaczenie ustne (PL ↔ DE)",
+          name: "Tłumaczenie ustne (PL, NL, EN, DE)",
           price: "od 45 € / godz.",
           detail: "Urząd, lekarz, bank, notariusz, telefon — stawka za rozpoczętą godzinę.",
         },
         {
-          name: "Tłumaczenie pisemne",
+          name: "Tłumaczenie pisemne (PL, NL, EN, DE)",
           price: "od 0,12 € / słowo",
           detail: "Pisma, umowy, formularze — wycena po obejrzeniu dokumentu.",
         },
@@ -200,7 +200,7 @@ export const SITE_SERVICES = [
     menuDescription: "Zwykłe i przysięgłe — ustne, pisemne i telefoniczne, u notariusza, lekarza, w urzędzie i banku.",
     title: "Tłumaczenia",
     description:
-      "Tłumaczenia polsko-niemieckie — zwykłe i przysięgłe: ustne, pisemne i telefoniczne — u notariusza, prawnika, lekarza, w urzędzie, banku i spółdzielni.",
+      "Tłumaczenia polsko-niemieckie — zwykłe i przysięgłe: ustne, pisemne i telefoniczne — u notariusza, prawnika, lekarza, w urzędzie, banku i spółdzielni. Tłumaczenia dostępne także w języku angielskim i holenderskim.",
     tag: "Tłumaczenia",
     slug: "tlumaczenia",
     excerpt: "Dokumenty w jasnym języku, gotowe do złożenia.",
@@ -439,6 +439,11 @@ export const SERVICE_DETAILS = {
       slug: "pomoc-przy-formalnosciach-i-dokumentach",
       title: "Pomoc przy formalnościach i dokumentach",
       text: "Zbieram i porządkuję papiery do banku albo ubezpieczyciela, żeby sprawa poszła dalej bez braków.",
+    },
+    {
+      slug: "pomoc-przy-zakladaniu-konta-bankowego",
+      title: "Pomoc przy zakładaniu konta bankowego",
+      text: "Pomagam założyć konto bankowe w każdym dostępnym niemieckim banku.",
     },
   ],
   "tlumaczenia": [
