@@ -665,6 +665,14 @@
   color: #0a66c2;
 }
 
+.contact-channel-instagram:hover {
+  color: #e4405f;
+}
+
+.contact-channel-tiktok:hover {
+  color: #25f4ee;
+}
+
 .contact-chat {
   width: 100%;
 }

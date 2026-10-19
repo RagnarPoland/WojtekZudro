@@ -16,6 +16,8 @@ export const SITE_CONTACT = {
   googleBusinessUrl:
     "https://www.google.com/searchviewer/10?svid=CAwSHRIbCgNwdnESFENnMHZaeTh4TVhScVgyaHFOM0p3GAo",
   facebookUrl: "https://www.facebook.com/p/B%C3%BCroservice-Zudro-61592739958994/",
+  instagramUrl: "https://www.instagram.com/zudrowojciech/",
+  tiktokUrl: "https://www.tiktok.com/@wojciechzudro",
   linkedinUrl:
     "https://www.linkedin.com/in/wojciech-%C5%BCdudro-281311202?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
   officeAddress: "Waldsiedlung 3E, 39343 Bebertal",
@@ -47,7 +49,7 @@ export const SITE_PRICING = {
         {
           name: "Pierwsza rozmowa wstępna",
           price: "Bezpłatnie",
-          detail: "Telefon, WhatsApp, Messenger lub spotkanie online — ustalamy zakres sprawy.",
+          detail: "Telefon, WhatsApp, Messenger, spotkanie online lub w moim biurze — ustalamy zakres sprawy.",
         },
         {
           name: "Konsultacja rozszerzona",
@@ -449,13 +451,13 @@ export const SERVICE_DETAILS = {
   "tlumaczenia": [
     {
       slug: "tlumaczenia-ustne-polski-niemiecki",
-      title: "Tłumaczenia ustne polski niemiecki",
-      text: "Tłumaczę na żywo z polskiego na niemiecki i z powrotem — jasno, bez gubienia sensu rozmowy.",
+      title: "Tłumaczenia ustne: polski, niemiecki, niderlandzki i angielski",
+      text: "Tłumaczę na żywo między polskim, niemieckim, niderlandzkim i angielskim — jasno, bez gubienia sensu rozmowy.",
     },
     {
       slug: "tlumaczenia-pisemne",
-      title: "Tłumaczenia pisemne",
-      text: "Tłumaczę pisma, umowy i dokumenty — gotowe do złożenia albo podpisania.",
+      title: "Tłumaczenia pisemne: polski, niemiecki, niderlandzki i angielski",
+      text: "Tłumaczę pisma, umowy i dokumenty z polskiego, niemieckiego, niderlandzkiego i angielskiego — gotowe do złożenia albo podpisania.",
     },
     {
       slug: "tlumaczenia-telefoniczne",
