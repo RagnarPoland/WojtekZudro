@@ -673,6 +673,10 @@
   color: #25f4ee;
 }
 
+.contact-channel-youtube:hover {
+  color: #ff0000;
+}
+
 .contact-chat {
   width: 100%;
 }

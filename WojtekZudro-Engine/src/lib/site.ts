@@ -18,6 +18,7 @@ export const SITE_CONTACT = {
   facebookUrl: "https://www.facebook.com/p/B%C3%BCroservice-Zudro-61592739958994/",
   instagramUrl: "https://www.instagram.com/zudrowojciech/",
   tiktokUrl: "https://www.tiktok.com/@wojciechzudro",
+  youtubeUrl: "https://www.youtube.com/@wojciechzudrobueroservice",
   linkedinUrl:
     "https://www.linkedin.com/in/wojciech-%C5%BCdudro-281311202?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
   officeAddress: "Waldsiedlung 3E, 39343 Bebertal",
@@ -461,8 +462,8 @@ export const SERVICE_DETAILS = {
     },
     {
       slug: "tlumaczenia-telefoniczne",
-      title: "Tłumaczenia telefoniczne",
-      text: "Jestem przy rozmowie telefonicznej i tłumaczę w obie strony, gdy trzeba coś ustalić od razu.",
+      title: "Tłumaczenia telefoniczne: polski, niemiecki, niderlandzki i angielski",
+      text: "Wiele spraw można załatwić telefonicznie w Niemczech bez konieczności wizyty osobistej. Jestem przy rozmowie telefonicznej i tłumaczę w obie strony między polskim, niemieckim, niderlandzkim i angielskim — gdy trzeba coś ustalić od razu.",
     },
     {
       slug: "tlumaczenia-podczas-wizyt-u-notariusza",
