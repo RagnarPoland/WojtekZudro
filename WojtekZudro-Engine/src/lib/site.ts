@@ -466,6 +466,11 @@ export const SERVICE_DETAILS = {
       text: "Wiele spraw można załatwić telefonicznie w Niemczech bez konieczności wizyty osobistej. Jestem przy rozmowie telefonicznej i tłumaczę w obie strony między polskim, niemieckim, niderlandzkim i angielskim — gdy trzeba coś ustalić od razu.",
     },
     {
+      slug: "wsparcie-tlumaczeniowe-dla-firm",
+      title: "Wsparcie tłumaczeniowe dla firm działających na terenie Niemiec",
+      text: "Prowadzisz firmę w Polsce lub w innym kraju i robisz interesy na terenie Niemiec? Świadczysz usługi, sprzedajesz towary lub prowadzisz inny rodzaj działalności gospodarczej? Chętnie pomogę Ci tłumaczeniowo podczas rozmów biznesowych z niemieckojęzycznymi kontrahentami, wynegocjuję najlepsze dla Ciebie warunki współpracy, będę tłumaczył umowy, abyś wiedział lub wiedziała, co podpisujesz. Tłumaczenia symultaniczne podczas konferencji, targów lub innych spotkań biznesowych — oprócz szukania mieszkań i domów na wynajem — to, co lubię najbardziej i sprawia mi najwięcej satysfakcji. Wykorzystując wiedzę i doświadczenie pokornie i cierpliwie zdobywane przez lata mojej emigracji na Zachodzie, pomogę Ci uniknąć kosztownych błędów i będę osobą kontaktową z Twoim partnerem biznesowym przez cały okres współpracy. Zapraszam, bo warto — o jakości moich usług przekonały się już tysiące zadowolonych klientów. Postaw na rzetelność i profesjonalizm i umów się na darmową, niezobowiązującą konsultację już dziś!",
+    },
+    {
       slug: "tlumaczenia-podczas-wizyt-u-notariusza",
       title: "Tłumaczenia podczas wizyt u notariusza",
       text: "Tłumaczę spotkanie u notariusza, żebyś wiedział, co podpisujesz i o czym mówicie.",
