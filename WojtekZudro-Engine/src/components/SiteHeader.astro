@@ -10,19 +10,7 @@ const isOfferSection = currentPath.startsWith("/uslugi");
 <header class="site-header">
   <BrandMark compact />
 
-  <button
-    class="site-menu-toggle"
-    type="button"
-    aria-expanded="false"
-    aria-controls="sitePrimaryMenu"
-    aria-label="Otwórz menu nawigacyjne"
-  >
-    <span class="site-menu-toggle-line" aria-hidden="true"></span>
-    <span class="site-menu-toggle-line" aria-hidden="true"></span>
-    <span class="site-menu-toggle-line" aria-hidden="true"></span>
-  </button>
-
-  <nav class="site-nav" id="sitePrimaryMenu" aria-label="Nawigacja główna">
+  <div class="site-header-end">
     <div class="site-lang-dropdown" data-lang-dropdown>
       <button
         type="button"
@@ -67,6 +55,20 @@ const isOfferSection = currentPath.startsWith("/uslugi");
         </button>
       </div>
     </div>
+
+    <button
+      class="site-menu-toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="sitePrimaryMenu"
+      aria-label="Otwórz menu nawigacyjne"
+    >
+      <span class="site-menu-toggle-line" aria-hidden="true"></span>
+      <span class="site-menu-toggle-line" aria-hidden="true"></span>
+      <span class="site-menu-toggle-line" aria-hidden="true"></span>
+    </button>
+
+    <nav class="site-nav" id="sitePrimaryMenu" aria-label="Nawigacja główna">
     {
       SITE_NAV.map((item) => {
         if (item.href === "/uslugi") {
@@ -165,7 +167,8 @@ const isOfferSection = currentPath.startsWith("/uslugi");
       })
     }
     <a href={withBase("/kontakt")} class="site-nav-cta">{SITE_CTA.buttonMenu}</a>
-  </nav>
+    </nav>
+  </div>
 </header>
 
 <script>
