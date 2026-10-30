@@ -1,17 +1,21 @@
 ---
+import { getContent, localePath, type Locale } from "../i18n";
 import { withBase } from "../lib/site";
 
 interface Props {
   compact?: boolean;
+  locale?: Locale;
 }
 
-const { compact = false } = Astro.props;
+const { compact = false, locale = "pl" } = Astro.props;
+const { labels } = getContent(locale);
+const homeHref = withBase(localePath(locale, "home"));
 ---
 
 <a
-  href={withBase("/")}
+  href={homeHref}
   class:list={["brand-mark", { "is-compact": compact }]}
-  aria-label="Wojciech Zudro — Büroservice"
+  aria-label={labels.brandAria}
 >
   <span class="brand-mark-mono" aria-hidden="true">
     <span>W</span>

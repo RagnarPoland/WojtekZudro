@@ -22,6 +22,8 @@ export const SITE_CONTACT = {
   linkedinUrl:
     "https://www.linkedin.com/in/wojciech-%C5%BCdudro-281311202?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
   officeAddress: "Waldsiedlung 3E, 39343 Bebertal",
+  officeHoursWeekdays: "pon.–pt.: 8–16",
+  officeHoursWeekend: "sobota, niedziela: po wcześniejszym umówieniu się",
   taxNumber: "St.-Nr.: 105/293/00986",
 } as const;
 

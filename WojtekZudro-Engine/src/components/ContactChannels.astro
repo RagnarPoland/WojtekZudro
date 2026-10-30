@@ -1,5 +1,13 @@
 ---
+import { getContent, type Locale } from "../i18n";
 import { SITE_CONTACT } from "../lib/site";
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = "pl" } = Astro.props;
+const { labels } = getContent(locale);
 ---
 
 <div class="contact-channels">
@@ -8,7 +16,7 @@ import { SITE_CONTACT } from "../lib/site";
     href={SITE_CONTACT.whatsappUrl}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Napisz na WhatsApp"
+    aria-label={labels.socialWhatsApp}
   >
     <svg class="contact-channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path
@@ -22,7 +30,7 @@ import { SITE_CONTACT } from "../lib/site";
     href={SITE_CONTACT.messengerUrl}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Napisz na Messengerze"
+    aria-label={labels.socialMessenger}
   >
     <svg class="contact-channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path
@@ -36,7 +44,7 @@ import { SITE_CONTACT } from "../lib/site";
     href={SITE_CONTACT.facebookUrl}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Odwiedź fanpage na Facebooku"
+    aria-label={labels.socialFacebook}
   >
     <svg class="contact-channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path
@@ -50,7 +58,7 @@ import { SITE_CONTACT } from "../lib/site";
     href={SITE_CONTACT.googleBusinessUrl}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Zobacz wizytówkę Google"
+    aria-label={labels.socialGoogle}
   >
     <svg class="contact-channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path
@@ -76,7 +84,7 @@ import { SITE_CONTACT } from "../lib/site";
     href={SITE_CONTACT.linkedinUrl}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Profil na LinkedIn"
+    aria-label={labels.socialLinkedIn}
   >
     <svg class="contact-channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path
@@ -90,7 +98,7 @@ import { SITE_CONTACT } from "../lib/site";
     href={SITE_CONTACT.instagramUrl}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Profil na Instagramie"
+    aria-label={labels.socialInstagram}
   >
     <svg class="contact-channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path
@@ -104,7 +112,7 @@ import { SITE_CONTACT } from "../lib/site";
     href={SITE_CONTACT.tiktokUrl}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Profil na TikToku"
+    aria-label={labels.socialTikTok}
   >
     <svg class="contact-channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path
@@ -118,7 +126,7 @@ import { SITE_CONTACT } from "../lib/site";
     href={SITE_CONTACT.youtubeUrl}
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Kanał na YouTube"
+    aria-label={labels.socialYouTube}
   >
     <svg class="contact-channel-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path

@@ -1,0 +1,69 @@
+---
+import ContactChannels from "../../components/ContactChannels.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { getContent } from "../../i18n";
+import { SITE_NAME } from "../../lib/site";
+
+const content = getContent("en");
+const { SITE_CONTACT, SITE_CTA, labels } = content;
+---
+
+<SiteLayout
+  title={`Contact — ${SITE_NAME}`}
+  description="Contact Wojciech Zudro — Büroservice. WhatsApp, Messenger, or email for housing, work, benefits, loans, interpreting, or authorities."
+>
+  <section class="simple-page contact-page">
+    <div class="contact-hero">
+      <div class="contact-hero-copy">
+        <p class="magazine-kicker gold-text">{labels.contactKicker}</p>
+        <h1 class="simple-page-title contact-title">{SITE_CTA.contactTitle}</h1>
+        <p class="simple-page-lead contact-lead">{labels.contactLead}</p>
+        <p class="contact-phone">
+          {labels.phone}
+          <a class="gold-text" href={`tel:${SITE_CONTACT.phone}`}>{SITE_CONTACT.phoneDisplay}</a>
+        </p>
+        <p class="contact-email">
+          {labels.email}
+          <a class="gold-text" href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
+        </p>
+        <p class="contact-office">
+          {labels.office}
+          <span class="contact-office-value">{SITE_CONTACT.officeAddress}</span>
+        </p>
+        <p class="contact-hours">
+          {labels.hours}
+          <span class="contact-hours-value">{SITE_CONTACT.officeHoursWeekdays}</span>
+          <span class="contact-hours-value">{SITE_CONTACT.officeHoursWeekend}</span>
+        </p>
+        <p class="contact-tax">
+          {labels.tax}
+          <span class="contact-tax-value">{SITE_CONTACT.taxNumber}</span>
+        </p>
+        <a href={`mailto:${SITE_CONTACT.email}`} class="site-btn site-btn-primary contact-email-btn">
+          {SITE_CTA.buttonMenu}
+        </a>
+      </div>
+
+      <aside class="contact-hero-aside" aria-label="Quick contact and map">
+        <div class="contact-info-card">
+          <p class="contact-info-label gold-text">{labels.contactAsideLabel}</p>
+          <p class="contact-info-text">{labels.contactAsideText}</p>
+          <ContactChannels locale="en" />
+        </div>
+
+        <div class="contact-map-card">
+          <p class="contact-info-label gold-text">{labels.mapTitle}</p>
+          <p class="contact-map-address">{SITE_CONTACT.officeAddress}</p>
+          <div class="contact-map-wrap">
+            <iframe
+              title={`Google Map — ${SITE_CONTACT.officeAddress}`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(SITE_CONTACT.officeAddress)}&z=17&t=k&output=embed`}
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+</SiteLayout>

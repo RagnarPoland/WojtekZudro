@@ -247,6 +247,11 @@ a {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.site-lang-option-link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .site-lang-flag {
   display: block;
   width: 1.85rem;

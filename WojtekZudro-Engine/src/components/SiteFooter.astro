@@ -1,18 +1,27 @@
 ---
 import ContactChannels from "./ContactChannels.astro";
-import { SITE_CONTACT, SITE_CTA, SITE_NAME, withBase } from "../lib/site";
+import { getContent, localePath, type Locale } from "../i18n";
+import { SITE_NAME } from "../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { SITE_CONTACT, SITE_CTA, labels } = getContent(locale);
 ---
 
-<section class="site-footer-cta" aria-label="Kontakt">
+<section class="site-footer-cta" aria-label={labels.footerContactSectionAria}>
   <div class="site-footer-cta-inner">
     <p class="site-footer-cta-lead gold-text">{SITE_CTA.footerLead}</p>
     <p class="site-footer-cta-text">
-      {SITE_CTA.footerText} Napisz na
-      <a class="gold-text" href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>
-      albo przejdź do
-      <a class="gold-text" href={withBase("/kontakt")}>strony kontaktowej</a>.
+      {SITE_CTA.footerText}{" "}
+      {labels.footerWriteEmail}{" "}
+      <a class="gold-text" href={`mailto:${SITE_CONTACT.email}`}>{SITE_CONTACT.email}</a>{" "}
+      {labels.footerOrGoTo}{" "}
+      <a class="gold-text" href={localePath(locale, "contact")}>{labels.footerContactPage}</a>.
     </p>
-    <ContactChannels />
+    <ContactChannels locale={locale} />
     <p class="site-footer-copy">{SITE_NAME} · Büroservice</p>
   </div>
 </section>

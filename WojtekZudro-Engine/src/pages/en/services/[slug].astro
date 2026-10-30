@@ -1,0 +1,47 @@
+---
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import { getContent, getServiceBySlug, getServiceDetails, localePath } from "../../../i18n";
+import { SITE_SERVICES } from "../../../lib/site";
+
+export function getStaticPaths() {
+  return SITE_SERVICES.map((service) => ({
+    params: { slug: service.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const locale = "en" as const;
+const service = getServiceBySlug(String(slug), locale);
+
+if (!service) {
+  throw new Error(`Unknown service: ${slug}`);
+}
+
+const details = getServiceDetails(service.slug, locale);
+const { SITE_CTA, labels } = getContent(locale);
+---
+
+<SiteLayout title={`${service.title} — Wojciech Zudro`} description={service.description}>
+  <section class="simple-page">
+    <p class="magazine-kicker gold-text">{service.tag}</p>
+    <h1 class="simple-page-title">{service.title}</h1>
+    <p class="simple-page-lead">{service.description}</p>
+
+    {
+      details.length > 0 ? (
+        <ol class="service-scope">
+          {details.map((item) => (
+            <li class="service-scope-item">
+              <h2 class="service-scope-title">{item.title}</h2>
+              <p class="service-scope-text">{item.text}</p>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p class="simple-page-text">{labels.serviceEmpty}</p>
+      )
+    }
+
+    <a href={localePath("en", "contact")} class="site-btn site-btn-primary">{SITE_CTA.buttonPrimary}</a>
+  </section>
+</SiteLayout>

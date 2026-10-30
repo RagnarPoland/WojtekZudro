@@ -533,6 +533,7 @@
 .contact-email,
 .contact-phone,
 .contact-office,
+.contact-hours,
 .contact-tax {
   margin: 1.1rem 0 0;
   color: #d0d0d0;
@@ -546,6 +547,7 @@
 }
 
 .contact-office-value,
+.contact-hours-value,
 .contact-tax-value {
   display: block;
   margin-top: 0.2rem;

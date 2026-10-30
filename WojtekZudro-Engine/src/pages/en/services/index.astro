@@ -1,0 +1,31 @@
+---
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import { getContent, serviceUrl } from "../../../i18n";
+import { SITE_NAME } from "../../../lib/site";
+
+const content = getContent("en");
+const { SITE_SERVICES, labels } = content;
+---
+
+<SiteLayout
+  title={`Services — ${SITE_NAME}`}
+  description="Housing, work, benefits, loans, interpreting, and authorities — Wojciech Zudro Büroservice."
+>
+  <section class="simple-page">
+    <p class="magazine-kicker gold-text">{labels.servicesKicker}</p>
+    <h1 class="simple-page-title">{labels.servicesTitle}</h1>
+    <p class="simple-page-lead">{labels.servicesLead}</p>
+  </section>
+  <div class="magazine-card-grid magazine-card-grid-3">
+    {
+      SITE_SERVICES.map((service) => (
+        <a class="magazine-card" href={serviceUrl("en", service.slug)}>
+          <p class="magazine-card-tag gold-text">{service.tag}</p>
+          <h2 class="magazine-card-title">{service.title}</h2>
+          <p class="magazine-card-text">{service.description}</p>
+          <span class="magazine-card-more">{labels.cardReadMore}</span>
+        </a>
+      ))
+    }
+  </div>
+</SiteLayout>

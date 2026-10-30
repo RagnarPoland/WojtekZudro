@@ -1,6 +1,7 @@
 ---
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
+import { getContent, getLocaleFromPath } from "../i18n";
 import { SITE_NAME, SITE_TAGLINE, withBase } from "../lib/site";
 import "../styles/global.css";
 import "../styles/site.css";
@@ -13,9 +14,14 @@ interface Props {
   hideFooter?: boolean;
 }
 
+const locale = getLocaleFromPath(Astro.url.pathname);
+const content = getContent(locale);
+const defaultTitle = `${SITE_NAME} — ${SITE_TAGLINE}`;
+const defaultDescription = content.metaDescriptionDefault;
+
 const {
-  title = `${SITE_NAME} — ${SITE_TAGLINE}`,
-  description = "Büroservice Wojciecha Zudro: mieszkania, praca, świadczenia, kredyty, tłumaczenia i urzędy. Dyskrecja, porządek i terminowość.",
+  title = defaultTitle,
+  description = defaultDescription,
   canonical,
   ogImage,
   hideFooter = false,
@@ -27,7 +33,7 @@ const pageImage = ogImage ?? `${siteOrigin}${withBase("/brand/wojciech-zudro.png
 ---
 
 <!doctype html>
-<html lang="pl">
+<html lang={content.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,7 +41,7 @@ const pageImage = ogImage ?? `${siteOrigin}${withBase("/brand/wojciech-zudro.png
     <meta name="description" content={description} />
     {pageUrl && <link rel="canonical" href={pageUrl} />}
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:locale" content={content.ogLocale} />
     <meta property="og:site_name" content={`${SITE_NAME} ${SITE_TAGLINE}`} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -56,10 +62,10 @@ const pageImage = ogImage ?? `${siteOrigin}${withBase("/brand/wojciech-zudro.png
     <slot name="head" />
   </head>
   <body>
-    <SiteHeader />
+    <SiteHeader locale={locale} />
     <main class="site-shell">
       <slot />
-      {!hideFooter && <SiteFooter />}
+      {!hideFooter && <SiteFooter locale={locale} />}
     </main>
   </body>
 </html>

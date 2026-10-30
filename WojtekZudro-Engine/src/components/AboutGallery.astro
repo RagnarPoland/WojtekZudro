@@ -9,9 +9,10 @@ interface Photo {
 interface Props {
   photos: readonly Photo[];
   initialIndex?: number;
+  galleryAriaLabel?: string;
 }
 
-const { photos, initialIndex = 0 } = Astro.props;
+const { photos, initialIndex = 0, galleryAriaLabel = "Galeria zdjęć" } = Astro.props;
 const activeIndex = Math.min(Math.max(initialIndex, 0), photos.length - 1);
 const initial = photos[activeIndex];
 ---
@@ -40,7 +41,7 @@ const initial = photos[activeIndex];
       />
     </div>
   </figure>
-  <div class="about-gallery-thumbs" role="tablist" aria-label="Galeria zdjęć">
+  <div class="about-gallery-thumbs" role="tablist" aria-label={galleryAriaLabel}>
     {
       photos.map((photo, index) => (
         <button

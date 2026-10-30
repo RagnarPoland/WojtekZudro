@@ -1,0 +1,46 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { getContent, localePath } from "../../i18n";
+import { SITE_NAME } from "../../lib/site";
+
+const content = getContent("en");
+const { SITE_CTA, SITE_PRICING, labels } = content;
+---
+
+<SiteLayout
+  title={`Pricing — ${SITE_NAME}`}
+  description="Sample pricing for Wojciech Zudro Büroservice — housing, work, benefits, interpreting, and authorities. First call free."
+>
+  <section class="simple-page pricing-page">
+    <p class="magazine-kicker gold-text">{labels.pricingKicker}</p>
+    <h1 class="simple-page-title">{labels.pricingTitle}</h1>
+    <p class="simple-page-lead">{SITE_PRICING.lead}</p>
+
+    <div class="pricing-grid">
+      {
+        SITE_PRICING.categories.map((category) => (
+          <section class="pricing-category">
+            <h2 class="pricing-category-title">{category.title}</h2>
+            <ul class="pricing-list">
+              {category.items.map((item) => (
+                <li class="pricing-item">
+                  <div class="pricing-item-head">
+                    <h3 class="pricing-item-name">{item.name}</h3>
+                    <p class="pricing-item-price gold-text">{item.price}</p>
+                  </div>
+                  <p class="pricing-item-detail">{item.detail}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+
+    <p class="pricing-note">{SITE_PRICING.note}</p>
+
+    <a href={localePath("en", "contact")} class="site-btn site-btn-primary pricing-cta">
+      {SITE_CTA.buttonMenu}
+    </a>
+  </section>
+</SiteLayout>

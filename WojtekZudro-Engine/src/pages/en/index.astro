@@ -1,0 +1,115 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { getContent, localePath, serviceUrl } from "../../i18n";
+import { SITE_NAME, SITE_TAGLINE, withBase } from "../../lib/site";
+
+const content = getContent("en");
+const {
+  HOME_CATEGORIES,
+  HOME_FEATURED,
+  HOME_LATEST,
+  HOME_POPULAR,
+  HOME_STATS,
+  SITE_CTA,
+  labels,
+} = content;
+---
+
+<SiteLayout
+  title={`${SITE_NAME} — ${SITE_TAGLINE}`}
+  description={content.metaDescriptionDefault}
+>
+  <article class="magazine-featured">
+    <div class="magazine-featured-visual">
+      <img
+        class="magazine-featured-portrait"
+        src={withBase("/wojtek4.jpg")}
+        alt="Wojciech Zudro — Büroservice in Bebertal"
+        width="900"
+        height="1125"
+        loading="eager"
+      />
+    </div>
+    <div class="magazine-featured-copy">
+      <p class="magazine-kicker gold-text">{HOME_FEATURED.eyebrow}</p>
+      <h1 class="magazine-featured-title">{HOME_FEATURED.title}</h1>
+      <p class="magazine-featured-text">{HOME_FEATURED.text}</p>
+      <div class="home-hero-actions">
+        <a href={localePath("en", "contact")} class="site-btn site-btn-primary">{SITE_CTA.buttonPrimary}</a>
+        <a href={localePath("en", "services")} class="site-btn site-btn-secondary">{labels.seeServices}</a>
+      </div>
+    </div>
+  </article>
+
+  <section class="magazine-section" aria-labelledby="latest-title">
+    <div class="magazine-section-head">
+      <h2 id="latest-title" class="magazine-section-title">{labels.latestTitle}</h2>
+    </div>
+    <div class="magazine-card-grid magazine-card-grid-3">
+      {
+        HOME_LATEST.map((item) => (
+          <a class="magazine-card" href={serviceUrl("en", item.slug)}>
+            <p class="magazine-card-tag gold-text">{item.tag}</p>
+            <h3 class="magazine-card-title">{item.title}</h3>
+            <p class="magazine-card-text">{item.text}</p>
+            <span class="magazine-card-more">{labels.readMore}</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="magazine-stats" aria-label={labels.statsAria}>
+    {
+      HOME_STATS.map((stat) => (
+        <article class="magazine-stat">
+          <p class="magazine-stat-value gold-text">{stat.value}</p>
+          <p class="magazine-stat-label">{stat.label}</p>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="magazine-section" aria-labelledby="popular-title">
+    <div class="magazine-section-head">
+      <h2 id="popular-title" class="magazine-section-title">{labels.popularTitle}</h2>
+    </div>
+    <div class="magazine-card-grid magazine-card-grid-3">
+      {
+        HOME_POPULAR.map((item) => (
+          <a class="magazine-card magazine-card-compact" href={serviceUrl("en", item.slug)}>
+            <p class="magazine-card-tag gold-text">{item.tag}</p>
+            <h3 class="magazine-card-title">{item.title}</h3>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  {
+    HOME_CATEGORIES.map((category) => (
+      <section class="magazine-section" aria-labelledby={`cat-${category.title.replace(/\s+/g, "-").toLowerCase()}`}>
+        <div class="magazine-section-head">
+          <h2 id={`cat-${category.title.replace(/\s+/g, "-").toLowerCase()}`} class="magazine-section-title">
+            {category.title}
+          </h2>
+        </div>
+        <div class="magazine-card-grid magazine-card-grid-3">
+          {category.items.map((item) => (
+            <a class="magazine-card magazine-card-compact" href={serviceUrl("en", item.slug)}>
+              <p class="magazine-card-tag gold-text">{item.tag}</p>
+              <h3 class="magazine-card-title">{item.title}</h3>
+              <p class="magazine-card-text">{item.text}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))
+  }
+
+  <section class="home-final-cta">
+    <h2 class="home-final-title">{SITE_CTA.homeTitle}</h2>
+    <p class="home-final-text">{SITE_CTA.homeText}</p>
+    <a href={localePath("en", "contact")} class="site-btn site-btn-primary">{SITE_CTA.buttonPrimary}</a>
+  </section>
+</SiteLayout>
