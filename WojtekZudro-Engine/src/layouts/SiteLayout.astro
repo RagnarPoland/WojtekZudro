@@ -1,10 +1,12 @@
 ---
 import SiteFooter from "../components/SiteFooter.astro";
 import SiteHeader from "../components/SiteHeader.astro";
-import { getContent, getLocaleFromPath } from "../i18n";
+import { getContent, getLocaleFromPath, type Locale } from "../i18n";
 import { SITE_NAME, SITE_TAGLINE, withBase } from "../lib/site";
 import "../styles/global.css";
 import "../styles/site.css";
+
+const appBase = import.meta.env.BASE_URL;
 
 interface Props {
   title?: string;
@@ -12,20 +14,25 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   hideFooter?: boolean;
+  locale?: Locale;
 }
 
-const locale = getLocaleFromPath(Astro.url.pathname);
+const {
+  title: titleProp,
+  description: descriptionProp,
+  canonical,
+  ogImage,
+  hideFooter = false,
+  locale: localeProp,
+} = Astro.props;
+
+const locale = localeProp ?? getLocaleFromPath(Astro.url.pathname);
 const content = getContent(locale);
 const defaultTitle = `${SITE_NAME} — ${SITE_TAGLINE}`;
 const defaultDescription = content.metaDescriptionDefault;
 
-const {
-  title = defaultTitle,
-  description = defaultDescription,
-  canonical,
-  ogImage,
-  hideFooter = false,
-} = Astro.props;
+const title = titleProp ?? defaultTitle;
+const description = descriptionProp ?? defaultDescription;
 
 const siteOrigin = Astro.site?.toString().replace(/\/$/, "") ?? "";
 const pageUrl = canonical ?? `${siteOrigin}${Astro.url.pathname}`;
@@ -33,7 +40,7 @@ const pageImage = ogImage ?? `${siteOrigin}${withBase("/brand/wojciech-zudro.png
 ---
 
 <!doctype html>
-<html lang={content.htmlLang}>
+<html lang={content.htmlLang} data-app-base={appBase}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

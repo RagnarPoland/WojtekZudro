@@ -35,11 +35,11 @@ export function localePath(locale: Locale, path: "home" | "about" | "contact" | 
   }
   const map = {
     home: "/en/",
-    about: "/en/about",
-    contact: "/en/contact",
-    pricing: "/en/pricing",
-    services: "/en/services",
-    service: "/en/services",
+    about: "/en/about/",
+    contact: "/en/contact/",
+    pricing: "/en/pricing/",
+    services: "/en/services/",
+    service: "/en/services/",
   } as const;
   return withBase(map[path]);
 }
@@ -58,14 +58,15 @@ export function switchLocalePath(currentPathname: string, target: Locale): strin
 
   const routeMap: { pl: string; en: string }[] = [
     { pl: "/", en: "/en/" },
-    { pl: "/o-mnie", en: "/en/about" },
-    { pl: "/kontakt", en: "/en/contact" },
-    { pl: "/cennik", en: "/en/pricing" },
-    { pl: "/uslugi", en: "/en/services" },
+    { pl: "/o-mnie/", en: "/en/about/" },
+    { pl: "/kontakt/", en: "/en/contact/" },
+    { pl: "/cennik/", en: "/en/pricing/" },
+    { pl: "/uslugi/", en: "/en/services/" },
   ];
 
   for (const pair of routeMap) {
-    if (normalized === pair[locale] || normalized === `${pair[locale]}/`) {
+    const pairPath = pair[locale].replace(/\/$/, "");
+    if (normalized === pair[locale] || normalized === pairPath || normalized === `${pairPath}/`) {
       return withBase(pair[target]);
     }
   }

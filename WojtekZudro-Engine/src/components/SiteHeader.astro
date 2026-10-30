@@ -19,7 +19,7 @@ const content = getContent(locale);
 const { SITE_NAV, SITE_CTA, labels } = content;
 const offerMenuItems = getOfferMenuItems(locale);
 const currentPath = withoutBase(Astro.url.pathname);
-const servicesHref = locale === "en" ? "/en/services" : "/uslugi";
+const servicesHref = locale === "en" ? "/en/services/" : "/uslugi/";
 const isOfferSection = currentPath.startsWith("/uslugi") || currentPath.startsWith("/en/services");
 const switchToPl = switchLocalePath(Astro.url.pathname, "pl");
 const switchToEn = switchLocalePath(Astro.url.pathname, "en");

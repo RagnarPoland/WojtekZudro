@@ -21,7 +21,7 @@ const details = getServiceDetails(service.slug, locale);
 const { SITE_CTA, labels } = getContent(locale);
 ---
 
-<SiteLayout title={`${service.title} — Wojciech Zudro`} description={service.description}>
+<SiteLayout locale="en" title={`${service.title} — Wojciech Zudro`} description={service.description}>
   <section class="simple-page">
     <p class="magazine-kicker gold-text">{service.tag}</p>
     <h1 class="simple-page-title">{service.title}</h1>

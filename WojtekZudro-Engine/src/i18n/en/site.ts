@@ -17,9 +17,9 @@ export const enContent: SiteStrings = {
   metaDescriptionDefault:
     "Wojciech Zudro Büroservice: housing, employment, benefits, loans, interpreting, and authorities in Germany. Discretion, order, and deadlines you can rely on.",
   SITE_NAV: [
-    { href: "/en/services", label: "Services", highlight: true },
-    { href: "/en/about", label: "About" },
-    { href: "/en/pricing", label: "Pricing" },
+    { href: "/en/services/", label: "Services", highlight: true },
+    { href: "/en/about/", label: "About" },
+    { href: "/en/pricing/", label: "Pricing" },
   ],
   SITE_CTA: {
     footerLead: "Need help with your matter?",

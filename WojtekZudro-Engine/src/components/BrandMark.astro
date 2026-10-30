@@ -27,3 +27,21 @@ const homeHref = localePath(locale, "home");
     <span class="brand-mark-tag">Büroservice</span>
   </span>
 </a>
+
+<script is:inline>
+  (function () {
+    var base = document.documentElement.getAttribute("data-app-base") || "/";
+    var baseTrim = base.replace(/\/$/, "");
+    var path = window.location.pathname;
+    var enRoot = baseTrim ? baseTrim + "/en/" : "/en/";
+    var plRoot = baseTrim ? baseTrim + "/" : "/";
+    var isEn =
+      path === enRoot ||
+      path === enRoot.replace(/\/$/, "") ||
+      path.indexOf(enRoot) === 0;
+    var home = isEn ? enRoot : plRoot;
+    document.querySelectorAll("a.brand-mark").forEach(function (anchor) {
+      anchor.setAttribute("href", home);
+    });
+  })();
+</script>
