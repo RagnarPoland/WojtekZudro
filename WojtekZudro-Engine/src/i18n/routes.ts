@@ -32,6 +32,13 @@ const LOCALIZED_SEGMENTS: Record<
     pricing: "/de/preise/",
     services: "/de/leistungen/",
   },
+  nl: {
+    home: "/nl/",
+    about: "/nl/over-mij/",
+    contact: "/nl/contact/",
+    pricing: "/nl/tarieven/",
+    services: "/nl/diensten/",
+  },
 };
 
 function normalizePath(path: string): string {
@@ -42,6 +49,7 @@ function normalizePath(path: string): string {
 export function getLocaleFromPath(pathname: string): Locale {
   const path = stripBase(pathname);
   const normalized = normalizePath(path === "" ? "/" : path);
+  if (normalized === "/nl/" || normalized.startsWith("/nl/")) return "nl";
   if (normalized === "/de/" || normalized.startsWith("/de/")) return "de";
   if (normalized === "/en/" || normalized.startsWith("/en/")) return "en";
   return "pl";
@@ -68,12 +76,12 @@ export function serviceUrl(locale: Locale, slug: string): string {
   return withBase(`${base}${slug}/`);
 }
 
-const PAGE_ROUTE_PAIRS: { pl: string; en: string; de: string }[] = [
-  { pl: "/", en: "/en/", de: "/de/" },
-  { pl: "/o-mnie/", en: "/en/about/", de: "/de/ueber-mich/" },
-  { pl: "/kontakt/", en: "/en/contact/", de: "/de/kontakt/" },
-  { pl: "/cennik/", en: "/en/pricing/", de: "/de/preise/" },
-  { pl: "/uslugi/", en: "/en/services/", de: "/de/leistungen/" },
+const PAGE_ROUTE_PAIRS: { pl: string; en: string; de: string; nl: string }[] = [
+  { pl: "/", en: "/en/", de: "/de/", nl: "/nl/" },
+  { pl: "/o-mnie/", en: "/en/about/", de: "/de/ueber-mich/", nl: "/nl/over-mij/" },
+  { pl: "/kontakt/", en: "/en/contact/", de: "/de/kontakt/", nl: "/nl/contact/" },
+  { pl: "/cennik/", en: "/en/pricing/", de: "/de/preise/", nl: "/nl/tarieven/" },
+  { pl: "/uslugi/", en: "/en/services/", de: "/de/leistungen/", nl: "/nl/diensten/" },
 ];
 
 function pathsMatch(a: string, b: string): boolean {
@@ -95,7 +103,7 @@ export function switchLocalePath(currentPathname: string, target: Locale): strin
   }
 
   const serviceMatch = normalized.match(
-    /^\/(?:en\/services|de\/leistungen|uslugi)\/([^/]+)\/?$/,
+    /^\/(?:en\/services|de\/leistungen|nl\/diensten|uslugi)\/([^/]+)\/?$/,
   );
   if (serviceMatch) {
     return serviceUrl(target, serviceMatch[1]!);
@@ -125,6 +133,16 @@ export function pathWithoutLocale(pathname: string): string {
     if (rest === "/kontakt/") return "/kontakt/";
     if (rest === "/preise/") return "/cennik/";
     if (rest === "/leistungen/") return "/uslugi/";
+    return rest || "/";
+  }
+
+  if (normalized === "/nl/" || normalized.startsWith("/nl/")) {
+    const rest = normalized.slice("/nl".length);
+    if (rest.startsWith("/diensten/")) return `/uslugi/${rest.slice("/diensten/".length)}`;
+    if (rest === "/over-mij/") return "/o-mnie/";
+    if (rest === "/contact/") return "/kontakt/";
+    if (rest === "/tarieven/") return "/cennik/";
+    if (rest === "/diensten/") return "/uslugi/";
     return rest || "/";
   }
 

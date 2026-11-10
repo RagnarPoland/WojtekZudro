@@ -88,7 +88,7 @@ export const enContent: SiteStrings = {
     langMenuAria: "Choose language",
     langTriggerAria: "Site language: English. Expand other languages",
     langDeutschSoon: "Deutsch",
-    langDutchSoon: "Nederlands — coming soon",
+    langDutchSoon: "Nederlands",
     footerContactSectionAria: "Contact",
   },
   HOME_FEATURED: {

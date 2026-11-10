@@ -20,17 +20,32 @@ const { SITE_NAV, SITE_CTA, labels } = content;
 const offerMenuItems = getOfferMenuItems(locale);
 const currentPath = withoutBase(Astro.url.pathname);
 const servicesNavItem = SITE_NAV.find((item) => item.highlight);
-const servicesHref = servicesNavItem?.href ?? (locale === "en" ? "/en/services/" : locale === "de" ? "/de/leistungen/" : "/uslugi/");
+const servicesHref =
+  servicesNavItem?.href ??
+  (locale === "en"
+    ? "/en/services/"
+    : locale === "de"
+      ? "/de/leistungen/"
+      : locale === "nl"
+        ? "/nl/diensten/"
+        : "/uslugi/");
 const isOfferSection =
   currentPath.startsWith("/uslugi") ||
   currentPath.startsWith("/en/services") ||
-  currentPath.startsWith("/de/leistungen");
+  currentPath.startsWith("/de/leistungen") ||
+  currentPath.startsWith("/nl/diensten");
 const switchToPl = switchLocalePath(Astro.url.pathname, "pl");
 const switchToEn = switchLocalePath(Astro.url.pathname, "en");
 const switchToDe = switchLocalePath(Astro.url.pathname, "de");
+const switchToNl = switchLocalePath(Astro.url.pathname, "nl");
 
 const isServicePathActive = (slug: string) => {
-  const paths = [`/uslugi/${slug}`, `/en/services/${slug}`, `/de/leistungen/${slug}`];
+  const paths = [
+    `/uslugi/${slug}`,
+    `/en/services/${slug}`,
+    `/de/leistungen/${slug}`,
+    `/nl/diensten/${slug}`,
+  ];
   const normalized = currentPath.replace(/\/$/, "");
   return paths.some((path) => normalized === path || normalized === `${path}/`);
 };
@@ -66,6 +81,12 @@ const isServicePathActive = (slug: string) => {
               <rect width="3" height="0.667" fill="#000"></rect>
               <rect y="0.667" width="3" height="0.667" fill="#D00"></rect>
               <rect y="1.333" width="3" height="0.667" fill="#FFCE00"></rect>
+            </svg>
+          ) : locale === "nl" ? (
+            <svg class="site-lang-flag" viewBox="0 0 9 6" aria-hidden="true">
+              <rect width="9" height="2" fill="#AE1C28"></rect>
+              <rect y="2" width="9" height="2" fill="#fff"></rect>
+              <rect y="4" width="9" height="2" fill="#21468B"></rect>
             </svg>
           ) : (
             <svg class="site-lang-flag site-lang-flag-pl" viewBox="0 0 3 2" aria-hidden="true">
@@ -114,13 +135,17 @@ const isServicePathActive = (slug: string) => {
             </a>
           )
         }
-        <button type="button" class="site-lang-option" role="menuitem" title={labels.langDutchSoon} aria-label={labels.langDutchSoon}>
-          <svg class="site-lang-flag" viewBox="0 0 9 6" aria-hidden="true">
-            <rect width="9" height="2" fill="#AE1C28"></rect>
-            <rect y="2" width="9" height="2" fill="#fff"></rect>
-            <rect y="4" width="9" height="2" fill="#21468B"></rect>
-          </svg>
-        </button>
+        {
+          locale !== "nl" && (
+            <a href={switchToNl} class="site-lang-option site-lang-option-link" role="menuitem" title="Nederlands" aria-label="Nederlands">
+              <svg class="site-lang-flag" viewBox="0 0 9 6" aria-hidden="true">
+                <rect width="9" height="2" fill="#AE1C28"></rect>
+                <rect y="2" width="9" height="2" fill="#fff"></rect>
+                <rect y="4" width="9" height="2" fill="#21468B"></rect>
+              </svg>
+            </a>
+          )
+        }
       </div>
     </div>
 

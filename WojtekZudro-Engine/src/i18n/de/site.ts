@@ -90,7 +90,7 @@ export const deContent: SiteStrings = {
     langMenuAria: "Sprache wählen",
     langTriggerAria: "Sprache der Website: Deutsch. Weitere Sprachen anzeigen",
     langDeutschSoon: "Deutsch",
-    langDutchSoon: "Nederlands — demnächst",
+    langDutchSoon: "Nederlands",
     footerContactSectionAria: "Kontakt",
   },
   HOME_FEATURED: {

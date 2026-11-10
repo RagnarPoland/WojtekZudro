@@ -82,7 +82,7 @@ export const plContent: SiteStrings = {
     langMenuAria: "Wybierz język",
     langTriggerAria: "Język strony: polski. Rozwiń inne języki",
     langDeutschSoon: "Deutsch",
-    langDutchSoon: "Nederlands — wkrótce",
+    langDutchSoon: "Nederlands",
     footerContactSectionAria: "Kontakt",
   },
   HOME_FEATURED: { ...HOME_FEATURED },

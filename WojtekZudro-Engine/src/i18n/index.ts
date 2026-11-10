@@ -3,6 +3,8 @@ import { deContent } from "./de/site";
 import { DE_SERVICE_DETAILS } from "./de/service-details";
 import { enContent } from "./en/site";
 import { EN_SERVICE_DETAILS } from "./en/service-details";
+import { nlContent } from "./nl/site";
+import { NL_SERVICE_DETAILS } from "./nl/service-details";
 import { plContent } from "./pl";
 import type { Locale, ServiceDetailItem, ServiceItem } from "./types";
 
@@ -19,6 +21,7 @@ export {
 export function getContent(locale: Locale) {
   if (locale === "en") return enContent;
   if (locale === "de") return deContent;
+  if (locale === "nl") return nlContent;
   return plContent;
 }
 
@@ -41,6 +44,10 @@ export function getServiceDetails(slug: string, locale: Locale): ServiceDetailIt
   }
   if (locale === "de") {
     const details = DE_SERVICE_DETAILS[slug as keyof typeof DE_SERVICE_DETAILS];
+    return details ? [...details] : [];
+  }
+  if (locale === "nl") {
+    const details = NL_SERVICE_DETAILS[slug as keyof typeof NL_SERVICE_DETAILS];
     return details ? [...details] : [];
   }
   const details = SERVICE_DETAILS[slug as keyof typeof SERVICE_DETAILS];
