@@ -87,7 +87,7 @@ export const enContent: SiteStrings = {
     socialYouTube: "YouTube channel",
     langMenuAria: "Choose language",
     langTriggerAria: "Site language: English. Expand other languages",
-    langDeutschSoon: "Deutsch — coming soon",
+    langDeutschSoon: "Deutsch",
     langDutchSoon: "Nederlands — coming soon",
     footerContactSectionAria: "Contact",
   },

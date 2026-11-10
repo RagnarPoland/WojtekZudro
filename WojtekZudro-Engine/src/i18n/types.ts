@@ -1,4 +1,4 @@
-export type Locale = "pl" | "en";
+export type Locale = "pl" | "en" | "de";
 
 export type NavItem = {
   href: string;

@@ -1,4 +1,6 @@
 import { SERVICE_DETAILS, SITE_OFFER_MENU_ORDER } from "../lib/site";
+import { deContent } from "./de/site";
+import { DE_SERVICE_DETAILS } from "./de/service-details";
 import { enContent } from "./en/site";
 import { EN_SERVICE_DETAILS } from "./en/service-details";
 import { plContent } from "./pl";
@@ -11,10 +13,13 @@ export {
   pathWithoutLocale,
   serviceUrl,
   switchLocalePath,
+  servicesNavHref,
 } from "./routes";
 
 export function getContent(locale: Locale) {
-  return locale === "en" ? enContent : plContent;
+  if (locale === "en") return enContent;
+  if (locale === "de") return deContent;
+  return plContent;
 }
 
 export function getOfferMenuItems(locale: Locale): ServiceItem[] {
@@ -32,6 +37,10 @@ export function getServiceBySlug(slug: string, locale: Locale): ServiceItem | un
 export function getServiceDetails(slug: string, locale: Locale): ServiceDetailItem[] {
   if (locale === "en") {
     const details = EN_SERVICE_DETAILS[slug as keyof typeof EN_SERVICE_DETAILS];
+    return details ? [...details] : [];
+  }
+  if (locale === "de") {
+    const details = DE_SERVICE_DETAILS[slug as keyof typeof DE_SERVICE_DETAILS];
     return details ? [...details] : [];
   }
   const details = SERVICE_DETAILS[slug as keyof typeof SERVICE_DETAILS];

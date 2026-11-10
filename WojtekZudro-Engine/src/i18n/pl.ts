@@ -81,7 +81,7 @@ export const plContent: SiteStrings = {
     socialYouTube: "Kanał na YouTube",
     langMenuAria: "Wybierz język",
     langTriggerAria: "Język strony: polski. Rozwiń inne języki",
-    langDeutschSoon: "Deutsch — wkrótce",
+    langDeutschSoon: "Deutsch",
     langDutchSoon: "Nederlands — wkrótce",
     footerContactSectionAria: "Kontakt",
   },

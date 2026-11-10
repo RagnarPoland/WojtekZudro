@@ -34,12 +34,17 @@ const homeHref = localePath(locale, "home");
     var baseTrim = base.replace(/\/$/, "");
     var path = window.location.pathname;
     var enRoot = baseTrim ? baseTrim + "/en/" : "/en/";
+    var deRoot = baseTrim ? baseTrim + "/de/" : "/de/";
     var plRoot = baseTrim ? baseTrim + "/" : "/";
     var isEn =
       path === enRoot ||
       path === enRoot.replace(/\/$/, "") ||
       path.indexOf(enRoot) === 0;
-    var home = isEn ? enRoot : plRoot;
+    var isDe =
+      path === deRoot ||
+      path === deRoot.replace(/\/$/, "") ||
+      path.indexOf(deRoot) === 0;
+    var home = isEn ? enRoot : isDe ? deRoot : plRoot;
     document.querySelectorAll("a.brand-mark").forEach(function (anchor) {
       anchor.setAttribute("href", home);
     });
